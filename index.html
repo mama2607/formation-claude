@@ -222,13 +222,29 @@
   .intro-card h1 em, .final-card h1 em { font-style: normal; color: var(--gold-deep); }
   .intro-card p, .final-card p { color: var(--text-dim); font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.5; max-width: 42ch; }
   .intro-card p b, .final-card p b { color: var(--text); }
-  #nameInput {
+  .prep { width: 100%; text-align: left; background: rgba(231, 177, 66, 0.07); border: 1px solid var(--line); border-radius: 16px; padding: 1.1rem 1.2rem; }
+  .prep h3 { font-family: var(--exp); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72rem; color: var(--gold-deep); margin-bottom: 0.15rem; }
+  .prep .prep-sub { font-size: 0.82rem; color: var(--text-faint); margin-bottom: 0.7rem; }
+  .prep ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .prep li { position: relative; padding-left: 1.7em; font-size: 0.92rem; line-height: 1.4; color: var(--text-dim); }
+  .prep li::before { content: "☐"; position: absolute; left: 0; top: -0.05em; color: var(--gold-deep); font-size: 1.05em; }
+  .prep li b { color: var(--text); }
+  .prep .prep-opt { margin-top: 0.7rem; font-size: 0.8rem; color: var(--text-faint); }
+  #nameInput, #codeInput {
     width: min(300px, 100%); text-align: center;
     font-family: var(--body); font-size: 1rem;
     padding: 0.8rem 1rem; border-radius: 12px;
     border: 1.5px solid var(--line-strong); background: #fff; color: var(--text);
   }
-  #nameInput:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+  #nameInput:focus, #codeInput:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+  #codeInput { letter-spacing: 0.14em; }
+  .gate { background: #fff; }
+  .gate.shake .intro-card { animation: gshake 0.4s; }
+  @keyframes gshake { 10%,90%{transform:translateX(-2px)} 30%,70%{transform:translateX(5px)} 50%{transform:translateX(-7px)} }
+  .code-err { color: #c0392b; font-size: 0.86rem; font-weight: 600; }
+  .legal { font-size: 0.72rem; color: var(--text-faint); line-height: 1.45; max-width: 44ch; margin-top: 0.3rem; }
+  .legal b { color: var(--gold-deep); }
+  .legal-foot { font-size: 0.68rem; color: var(--text-faint); line-height: 1.4; margin-top: 0.6rem; }
 
   /* Mission modal */
   .modal .sheet {
@@ -247,11 +263,14 @@
   }
   .sheet-ic { width: 3.4rem; height: 3.4rem; flex: none; border-radius: 14px; display: grid; place-items: center; font-size: 1.9rem; background: rgba(231, 177, 66, 0.16); border: 1px solid var(--line-strong); }
   .sheet-head .st { font-family: var(--exp); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.72rem; color: var(--gold-deep); }
+  .sheet-head .st .tmin { font-family: inherit; letter-spacing: 0.06em; color: var(--text-faint); background: rgba(231, 177, 66, 0.12); border: 1px solid var(--line); border-radius: 999px; padding: 0.08em 0.6em; margin-left: 0.55em; white-space: nowrap; }
   .sheet-head h2 { font-family: var(--display); font-weight: 700; font-size: clamp(1.3rem, 3.4vw, 1.8rem); color: var(--text); line-height: 1.05; }
   .sheet-close { margin-left: auto; flex: none; width: 34px; height: 34px; border-radius: 9px; border: 1px solid var(--line); background: #fff; cursor: pointer; font-size: 1.2rem; color: var(--text-dim); }
   .sheet-close:hover { background: rgba(231, 177, 66, 0.12); color: var(--gold-deep); }
   .sheet-body { padding: 1.3rem clamp(1.3rem, 4vw, 2rem); display: flex; flex-direction: column; gap: 1.1rem; }
   .m-lead { font-size: 1.02rem; line-height: 1.55; color: var(--text-dim); }
+  .m-video { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #000; }
+  .m-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .m-lead b { color: var(--text); }
   .m-steps { margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.7rem; counter-reset: s; }
   .m-steps li { position: relative; padding-left: 2.7em; font-size: 1rem; line-height: 1.45; text-align: left; }
@@ -364,13 +383,41 @@
 </main>
 
 <!-- Intro -->
-<div class="overlay intro show" id="intro">
+<!-- Access gate -->
+<div class="overlay gate show" id="gate" style="z-index:80;">
+  <div class="intro-card">
+    <div class="mark"><span class="logo">IV</span> IZI VIZI · Accès formation</div>
+    <h1>Accès<br><em>réservé</em></h1>
+    <p>Ce parcours est réservé aux <b>participantes de la formation IZI VIZI</b>. Saisis le <b>code d'accès</b> communiqué pendant l'atelier pour continuer.</p>
+    <input id="codeInput" type="password" inputmode="text" placeholder="Code d'accès" autocomplete="off" aria-label="Code d'accès" />
+    <div id="codeErr" class="code-err" role="alert" hidden>Code incorrect — réessaie.</div>
+    <button class="btn primary big" id="gateBtn">Entrer →</button>
+    <div class="legal">🔒 Accès personnel. Merci de <b>ne pas partager ce lien ni ce code</b>.<br>© IZI VIZI 2026 — Tous droits réservés. Reproduction, diffusion et revente interdites.</div>
+  </div>
+</div>
+
+<div class="overlay intro" id="intro">
   <div class="intro-card">
     <div class="mark"><span class="logo">IV</span> IZI VIZI</div>
     <h1>Le Parcours<br><em>Claude</em></h1>
     <p>Gravis les niveaux, débloque chaque outil un par un, et deviens <b>Experte Claude</b> avant la fin de la soirée. Pas eu le temps de finir une étape&nbsp;? Tu pourras <b>y revenir quand tu veux</b>.</p>
+    <div class="prep">
+      <h3>✦ À préparer avant de commencer</h3>
+      <div class="prep-sub">5 minutes de préparation = une formation fluide. Idéalement, arrive avec&nbsp;:</div>
+      <ul>
+        <li>Un <b>ordinateur</b> (pas seulement le téléphone) et <b>Google Chrome</b> installé — on utilisera une extension.</li>
+        <li>Un <b>compte Claude</b> créé et connecté sur <b>claude.ai</b> (l\'offre gratuite suffit pour commencer).</li>
+        <li>Tes <b>identifiants</b> à portée de main pour les outils qu\'on va connecter&nbsp;: <b>Google/Gmail, Canva, Notion</b>.</li>
+        <li>Ton <b>compte ChatGPT</b> (si tu en as un) — on importera ce qu\'il sait déjà de toi.</li>
+        <li>Ton <b>univers de marque</b>&nbsp;: logo, couleurs, polices (ou au moins une idée) pour configurer ton design.</li>
+        <li>Quelques <b>infos business</b> sous la main&nbsp;: ton offre, ta cible, ton ton de voix, 2-3 exemples de posts que tu aimes.</li>
+        <li>De quoi <b>prendre des notes</b> et une boisson ☕</li>
+      </ul>
+      <div class="prep-opt">Pas tout ça&nbsp;? Aucun souci — viens comme tu es, on avance ensemble.</div>
+    </div>
     <input id="nameInput" placeholder="Ton prénom (facultatif)" autocomplete="given-name" />
     <button class="btn primary big" id="startBtn">Commencer le parcours →</button>
+    <div class="legal-foot">Accès réservé aux participantes IZI VIZI · merci de ne pas partager ce lien · © IZI VIZI 2026</div>
   </div>
 </div>
 
@@ -465,7 +512,8 @@
   var PROMPT_DELEGUE = "Recherche pour moi les meilleures options de [ce que tu cherches] pour mon [business]. Critères : [budget, style, contraintes]. Compare 5 options dans un tableau avec prix, avantages/inconvénients et un lien pour voir ou acheter.";
   var PROMPT_AUTO = "Voici mes outils connectés (Notion, Canva, ma to-do). Chaque semaine : prends les idées de contenu « à créer » dans mon Notion, crée les visuels dans Canva à partir de mon template, et ajoute les tâches de publication dans ma to-do. Puis résume-moi ce que tu as préparé.";
   var PROMPT_NEWS = "Chaque mois, rédige ma newsletter à partir de : mon édito du moment, mes prochains événements et l'actu de mes réseaux sociaux. Ton chaleureux et proche de ma communauté. Structure : une accroche, mon édito, mes actus, un contenu à (re)voir, et un appel à l'action.";
-  var PROMPT_STRAT = "Connecte-toi à Canva et duplique ce template de stratégie digitale : https://canva.link/tgssldsqy0eyojo. Remplis-le pour mon activité : [décris ton business, ta cible et tes offres]. Aux couleurs IZI VIZI (doré #e7b142). Propose mes piliers de contenu, un rythme de publication réaliste et 10 idées de posts pour démarrer.";
+  var PROMPT_STRAT_DOC = "Tu es mon stratège réseaux sociaux. Rédige ma stratégie de contenu complète, structurée et actionnable, sous forme d'un document clair (utilise un Artifact). Mon activité : [décris ton business, ta cible et tes offres en quelques phrases].\n\nSuis exactement cette structure :\n1. Contexte & pourquoi les réseaux sociaux pour mon activité\n2. Analyse du marché et de 2 concurrents (forces / faiblesses / ce que je peux faire mieux)\n3. Objectifs SMART et KPI à suivre\n4. Avatar client détaillé (qui, besoins, freins, où il/elle passe du temps)\n5. Plateforme de marque : mission, vision, valeurs, ton de voix\n6. Ligne éditoriale : funnel (découverte / considération / conversion), mes 4 piliers de contenu, formats recommandés\n7. Choix des réseaux et fréquence de publication réaliste\n8. Calendrier des 2 premières semaines : idées de posts concrètes (accroche + format + réseau)\n\nSois précis, donne des exemples adaptés à MON activité, et termine par les 3 premières actions à lancer cette semaine.";
+  var PROMPT_STRAT = "Reprends la stratégie que tu viens de rédiger. Connecte-toi à Canva, duplique ce template : https://canva.link/tgssldsqy0eyojo et remplis-le avec le contenu de la stratégie, à mes couleurs IZI VIZI (doré #e7b142).";
   var PROMPT_ASSIST = "Tu es mon bras droit dans mon entreprise : [nom + activité]. Tu connais mon offre, ma cible et mon style, et tu écris toujours à ma sauce. Aide-moi à centraliser et faire avancer : l'administration (mails, contrats, assurances, suivi de dossiers), le recrutement (annonces, tri des candidatures, entretiens, onboarding), les procédures internes et guides d'accueil, la communication (TikTok, LinkedIn, YouTube, newsletters) et l'organisation des événements et le suivi des réservations/clients. Voici mes infos, mon ton de voix et 2-3 exemples de mes contenus : [colle-les]. Commence par me proposer comment tu peux m'aider cette semaine.";
   var PROMPT_DESIGN =
 "Aide-moi à configurer mon design system dans Claude Design. Pose-moi les questions une par une et attends ma réponse à chaque fois :\n" +
@@ -481,10 +529,50 @@
   function copyBtn(label, prompt) { return '<button class="btn primary" data-copy="' + esc(prompt) + '" data-open="claude">' + label + '</button>'; }
   function esc(s) { return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
+  var PROMPT_ECO = "Aide-moi à estimer mon empreinte carbone perso et à situer l'IA par rapport à la viande, l'avion, la voiture et le chauffage. Donne-moi les 3 leviers où j'ai le plus d'impact, et dis-moi franchement si mon usage de l'IA vaut la peine que je m'en inquiète ou si je gagnerais plus à agir ailleurs.";
+  var PROMPT_DATA = "Explique-moi simplement ce que deviennent mes données quand j'utilise Claude et quand je connecte mes outils (Gmail, Canva, Notion) : ce qui sert à l'entraînement, comment le désactiver, et 3 bonnes pratiques RGPD pour mon business.";
+
   var MISSIONS = [
+    { id: "landscape", icon: "🧭", title: "Le paysage Claude", body:
+      '<p class="m-lead">Avant de plonger : <b>qui fait quoi&nbsp;?</b> Claude, ce n\'est pas qu\'un chat — voici les différents espaces et à quoi ils servent.</p>' +
+      '<div class="m-card"><span class="lbl">Qui fait quoi</span><ul>' +
+      '<li><b>Claude (le chat)</b> — la conversation : écrire, analyser, répondre, créer.</li>' +
+      '<li><b>Claude Design</b> — ta charte (couleurs, polices) + des visuels et présentations à ta marque.</li>' +
+      '<li><b>Claude Code</b> — décris une idée, Claude te construit un outil / une page (sans coder).</li>' +
+      '<li><b>Claude dans Chrome (Cowork)</b> — l\'extension : Claude agit dans tes onglets (mails, sites), à côté de toi.</li>' +
+      '<li><b>Les Projets</b> — un espace qui garde ton contexte, tes docs, ton style (ton bras droit).</li>' +
+      '<li><b>Les Connecteurs</b> — relier Claude à Gmail, Agenda, Drive, Canva, Notion.</li>' +
+      '<li><b>Les Tâches programmées</b> — Claude qui travaille en automatique.</li>' +
+      '</ul></div>' +
+      '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">Pas de panique : chaque espace a son niveau dédié dans le parcours. On y va pas à pas.</p>' },
+
     { id: "start", icon: "🚪", title: "Ouvrir Claude", body:
-      '<p class="m-lead">Claude est un assistant à qui tu <b>parles normalement</b>, comme à un collègue très compétent. Première étape : ouvre ton espace et garde-le à côté de ce parcours.</p>' +
+      '<p class="m-lead">Claude est un assistant à qui tu <b>parles normalement</b>, comme à un collègue très compétent. Ouvre-le dans un <b>onglet séparé</b> et garde ce parcours juste à côté.</p>' +
+      '<div class="m-card"><span class="lbl">Ton tout premier réflexe</span>Dis-lui bonjour et pose une vraie question, par ex.&nbsp;: «&nbsp;<b>Présente-toi en 3 phrases et donne-moi 5 façons de m\'aider dans mon business.</b>&nbsp;» — juste pour voir comment il répond.</div>' +
       '<div class="m-actions">' + openBtn("Ouvrir mon Claude") + '</div>' },
+
+    { id: "eco", icon: "🌱", title: "L'impact écologique", body:
+      '<p class="m-lead">Oui, l\'IA consomme de l\'énergie. Mettons-le en perspective — et voyons comment <b>consommer moins</b>.</p>' +
+      '<div class="m-card"><span class="lbl">Les chiffres (ordres de grandeur)</span>Une question courte à Claude ≈ <b>0,2 à 1 Wh</b> selon le modèle ; l\'eau ≈ 0,5 L pour ~300 questions. À côté, <b>1h de Netflix, un burger ou 1 km en voiture</b> pèsent bien plus.</div>' +
+      '<div class="m-card"><span class="lbl">Le vrai levier</span>Réduire l\'<b>avion, la viande, le chauffage</b> baisse tes émissions <b>bien plus</b> que réduire l\'IA. Un·e Belge émet ~7-9 t CO₂/an : ton usage quotidien de Claude en est une fraction infime.</div>' +
+      '<div class="m-card"><span class="lbl">Consommer moins avec Claude</span><ul>' +
+      '<li>Choisis un <b>modèle plus léger</b> (Haiku / Sonnet) pour les tâches simples ; garde Opus pour le complexe.</li>' +
+      '<li>Demande des réponses <b>plus courtes</b>.</li>' +
+      '<li><b>Ouvre une nouvelle conversation</b> par sujet : les longs fils consomment plus… et Claude y répond moins bien.</li>' +
+      '</ul></div>' +
+      '<div class="m-actions"><button class="btn primary" data-copy="' + esc(PROMPT_ECO) + '" data-open="claude">Estimer mon impact ✨</button></div>' +
+      '<p style="font-size:.8rem; color:var(--text-faint); margin-top:.1rem;">Ordres de grandeur — études 2025-2026 sur l\'énergie de l\'IA (varie selon modèles et data centers).</p>' },
+
+    { id: "data", icon: "🔒", title: "Tes données & la confidentialité", body:
+      '<p class="m-lead">Que deviennent tes données quand tu utilises Claude et que tu connectes tes outils&nbsp;? L\'essentiel, sans jargon.</p>' +
+      '<div class="m-card"><span class="lbl">Ce qu\'il faut savoir</span><ul>' +
+      '<li>Forfaits perso (Free/Pro/Max) : tes conversations <b>peuvent servir à entraîner Claude — sauf si tu le désactives</b> (Réglages → « Aider à améliorer Claude »).</li>' +
+      '<li>Comptes <b>Team / Entreprise / API</b> et mode <b>Incognito</b> : <b>jamais</b> utilisés pour l\'entraînement.</li>' +
+      '<li>Anthropic <b>ne vend pas</b> tes données ; droits <b>RGPD</b> (accès, suppression, portabilité).</li>' +
+      '</ul></div>' +
+      '<div class="m-card"><span class="lbl">Les connecteurs (Gmail, Canva, Notion…)</span>Claude n\'accède qu\'à ce que <b>tu autorises</b>, pour agir à ta demande. Bonnes pratiques : n\'active que l\'utile, <b>révoque</b> quand tu as fini, évite d\'y mettre des données ultra-sensibles.</div>' +
+      '<div class="m-card"><span class="lbl">Alors, risqué ?</span>Pour un usage business courant : raisonnable si tu <b>coupes l\'entraînement</b> sur ton compte perso, tu <b>gères tes connecteurs</b> et tu évites le très sensible. Pour du très confidentiel : compte <b>Team/Entreprise</b> ou mode <b>Incognito</b>.</div>' +
+      '<div class="m-actions"><a class="btn primary" href="https://claude.ai/settings" target="_blank" rel="noopener">Régler ma confidentialité ↗</a><button class="btn ghost" data-copy="' + esc(PROMPT_DATA) + '" data-open="claude">Poser la question à Claude</button></div>' },
 
     { id: "firstprompt", icon: "✍️", title: "Ton 1er prompt", body:
       '<p class="m-lead">Le secret d\'un bon prompt : <b>donne du contexte</b>. Présente ton business — Claude te posera des questions et proposera comment t\'aider.</p>' +
@@ -492,14 +580,15 @@
       '<div class="m-actions">' + copyBtn("Copier &amp; essayer", PROMPT_FIRST) + '</div>' },
 
     { id: "memory", icon: "🧠", title: "Importer ta mémoire ChatGPT", body:
-      '<p class="m-lead">Donne à Claude <b>la mémoire de ChatGPT</b> : il saura déjà qui tu es et ce que tu fais — fini de tout réexpliquer à chaque conversation.</p>' +
-      '<div class="m-card"><span class="lbl">Étape 1 · sur ChatGPT</span>Ouvre ChatGPT → <b>Réglages → Contrôles des données → Exporter</b> (ou colle le prompt d\'import que Claude te donne). <b>Copie</b> ce que ChatGPT te renvoie.<div class="m-actions" style="margin-top:.7rem;"><a class="btn primary" href="https://chatgpt.com" target="_blank" rel="noopener">1 · Ouvrir ChatGPT ↗</a></div></div>' +
-      '<div class="m-card"><span class="lbl">Étape 2 · sur Claude</span>Va dans <b>Paramètres → Capacités → « Démarrer l\'importation »</b>, puis <b>colle</b> le résumé. C\'est importé&nbsp;!<div class="m-actions" style="margin-top:.7rem;"><a class="btn primary" href="https://claude.ai/import" target="_blank" rel="noopener">2 · Importer dans Claude ↗</a></div></div>' +
+      '<p class="m-lead">Donne à Claude <b>ce que ChatGPT sait déjà de toi</b> : fini de tout réexpliquer à chaque conversation. La méthode la plus simple et fiable&nbsp;: <b>copier / coller</b>.</p>' +
+      '<div class="m-card"><span class="lbl">Étape 1 · sur ChatGPT — récupère ton profil</span>Ouvre ChatGPT et demande-lui&nbsp;:<br>«&nbsp;<b>Résume tout ce que tu sais sur moi et mon activité, en détail&nbsp;: qui je suis, mon business, ma cible, mon ton de voix, mes préférences.</b>&nbsp;» Puis <b>copie</b> sa réponse.<div class="m-actions" style="margin-top:.7rem;"><a class="btn primary" href="https://chatgpt.com" target="_blank" rel="noopener">1 · Ouvrir ChatGPT ↗</a></div></div>' +
+      '<div class="m-card"><span class="lbl">Étape 2 · sur Claude — colle-le</span><b>Colle ce résumé</b> dans Claude. Encore mieux&nbsp;: mets-le dans les <b>instructions de ton Projet «&nbsp;Bras droit&nbsp;»</b> (niveau précédent) — comme ça il s\'en souvient <b>partout</b>.<div class="m-actions" style="margin-top:.7rem;"><a class="btn primary" href="https://claude.ai/projects" target="_blank" rel="noopener">2 · Ouvrir mes Projets ↗</a></div></div>' +
+      '<div class="m-card"><span class="lbl">Option avancée</span>Claude propose aussi une <b>importation ChatGPT</b> intégrée dans <b>Paramètres → Capacités</b> (si elle est disponible sur ton compte). Le copier/coller ci-dessus, lui, marche <b>à tous les coups</b>.</div>' +
       '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">Pas de ChatGPT&nbsp;? Colle simplement 3-4 phrases sur ton business et ta cible dans Claude.</p>' },
 
     { id: "assistant", icon: "🤝", title: "Ton assistant à ta sauce", body:
       '<p class="m-lead">Va plus loin qu\'un simple assistant : fais de Claude ton <b>bras droit</b> — un <b>Projet</b> qui connaît ton entreprise et ton style, et t\'aide sur presque tout.</p>' +
-      '<ol class="m-steps"><li>Crée un <b>nouveau Projet</b> dans Claude.</li><li>Dépose tes <b>docs clés</b> (offre, procédures, infos entreprise) + ton <b>ton de voix</b> et des exemples.</li><li>Travaille toujours dedans : il centralise et fait avancer, à ta sauce.</li></ol>' +
+      '<ol class="m-steps"><li>Dans la <b>barre latérale gauche</b>, clique <b>Projets → + Nouveau projet</b>, donne-lui un nom (ex. « Bras droit IZI VIZI »).</li><li>Ouvre le projet, clique <b>Ajouter du contenu / des fichiers</b> et dépose tes <b>docs clés</b> (offre, procédures, infos entreprise) ; colle ton <b>ton de voix</b> et des exemples dans les <b>instructions du projet</b>.</li><li>Travaille toujours dedans : il centralise et fait avancer, à ta sauce.</li></ol>' +
       '<div class="m-card"><span class="lbl">Ce qu\'il peut prendre en charge</span><ul>' +
       '<li><b>Admin</b> : mails, contrats, assurances, suivi de dossiers.</li>' +
       '<li><b>Recrutement</b> : annonces, tri des candidatures, entretiens, onboarding.</li>' +
@@ -523,7 +612,7 @@
 
     { id: "cowork", icon: "🧩", title: "Claude Cowork", body:
       '<p class="m-lead">Un <b>plugin Chrome</b> qui met Claude dans les outils que tu utilises déjà. Installe-le, puis teste-le sur ta boîte mail&nbsp;!</p>' +
-      '<ol class="m-steps"><li>Installe l\'extension (bouton ci-dessous) et connecte-toi.</li><li>Ouvre ta boîte mail (Gmail).</li><li>Lance Claude dans le navigateur et demande-lui de trier tes mails.</li></ol>' +
+      '<ol class="m-steps"><li>Installe l\'extension (bouton ci-dessous), puis <b>épingle-la</b> : clique l\'icône <b>puzzle 🧩</b> en haut à droite de Chrome et fixe Claude.</li><li>Ouvre ta boîte mail (Gmail) et <b>connecte-toi</b> à ton compte Claude dans l\'extension.</li><li>Clique l\'icône Claude, puis demande-lui de <b>trier tes mails</b> directement dans l\'onglet.</li></ol>' +
       '<div class="m-card"><span class="lbl">Exercice : trie mes mails à ma place</span>« ' + PROMPT_TRIMAIL + ' »</div>' +
       '<div class="m-actions"><a class="btn primary" href="https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn" target="_blank" rel="noopener">Installer l\'extension ↗</a><button class="btn ghost" data-copy="' + esc(PROMPT_TRIMAIL) + '">Copier l\'exercice</button></div>' },
 
@@ -540,6 +629,7 @@
 
     { id: "scheduled", icon: "⏰", title: "Tâches programmées", body:
       '<p class="m-lead">Programme une tâche <b>une seule fois</b>, elle se répète toute seule : chaque matin, chaque lundi…</p>' +
+      '<ol class="m-steps"><li>Colle le prompt dans Claude — précise l\'<b>heure</b> et la <b>fréquence</b> (ex. « chaque matin à 9h »).</li><li>Claude te propose de créer une <b>tâche programmée</b> : confirme.</li><li>Retrouve-les et mets-les en pause dans <b>Paramètres → Tâches programmées</b>.</li></ol>' +
       '<div class="m-card"><span class="lbl">Exemple à copier</span>' + PROMPT_SCHED + '</div>' +
       '<div class="m-actions">' + copyBtn("Copier &amp; essayer", PROMPT_SCHED) + '</div>' },
 
@@ -608,11 +698,26 @@
       '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">Tu peux aussi lui demander de les <b>envoyer</b> directement — mais les brouillons te laissent tout vérifier d\'abord.</p>' },
 
     { id: "strat", icon: "🎯", title: "Crée ta stratégie digitale", body:
-      '<p class="m-lead"><b>Bonus, à faire après la formation.</b> Pose ta stratégie de contenu à partir d\'un template Canva — Claude le remplit pour toi, à tes couleurs.</p>' +
-      '<ol class="m-steps"><li>Connecte <b>Canva</b> à Claude et ouvre le template (bouton).</li><li>Copie le prompt et complète avec ton activité.</li><li>Claude remplit ta stratégie <b>à tes couleurs IZI VIZI</b>.</li></ol>' +
-      '<div class="m-card"><span class="lbl">Prompt à copier</span>' + PROMPT_STRAT + '</div>' +
-      '<div class="m-actions"><button class="btn primary" data-copy="' + esc(PROMPT_STRAT) + '" data-open="claude">Copier &amp; ouvrir Claude</button><a class="btn ghost" href="https://canva.link/tgssldsqy0eyojo" target="_blank" rel="noopener">Voir le template ↗</a></div>' }
+      '<p class="m-lead">Une <b>vraie stratégie de contenu</b> complète&nbsp;: contexte, marché &amp; concurrents, objectifs, avatar client, plateforme de marque, ligne éditoriale et calendrier des premiers posts. On procède en <b>2 temps</b>.</p>' +
+      '<div class="m-card"><span class="lbl">Étape 1 · Claude rédige ta stratégie</span>Colle le prompt et remplace le <b>[crochet]</b> par ton activité. Claude te livre un <b>document structuré et complet</b>, prêt à utiliser — pas besoin de connecter quoi que ce soit.<div class="m-actions" style="margin-top:.7rem;"><button class="btn primary" data-copy="' + esc(PROMPT_STRAT_DOC) + '" data-open="claude">Copier &amp; ouvrir Claude</button></div></div>' +
+      '<div class="m-card"><span class="lbl">Étape 2 · (optionnel) Mets-la en forme dans Canva</span>Une fois la stratégie rédigée, tu peux demander à Claude de la <b>couler dans ton template Canva</b>, à tes couleurs. Nécessite le connecteur Canva.<div class="m-actions" style="margin-top:.7rem;"><button class="btn ghost" data-copy="' + esc(PROMPT_STRAT) + '" data-open="claude">Copier le prompt Canva</button><a class="btn ghost" href="https://canva.link/tgssldsqy0eyojo" target="_blank" rel="noopener">Voir le template ↗</a></div></div>' +
+      '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">💡 Astuce démo&nbsp;: fais l\'étape 1 en direct (rapide et fiable), et montre l\'étape 2 comme un bonus «&nbsp;à faire chez soi&nbsp;».</p>' }
   ];
+
+  // Optional short demo video per level (URL d'intégration, ex. YouTube "embed" ou Loom).
+  // Laisse vide pour n'afficher aucune vidéo ; ajoute "id: 'lien'" pour l'afficher en haut du niveau.
+  var VIDEOS = {
+    // landscape: "https://www.youtube.com/embed/XXXXXXXX",
+    // design: "https://www.loom.com/embed/XXXXXXXX",
+  };
+
+  // Temps indicatif par niveau (en minutes) — aide au rythme de la formation.
+  var TIMES = {
+    landscape: 4, start: 2, eco: 5, data: 4, firstprompt: 5, memory: 8,
+    assistant: 12, design: 15, pitch: 12, cowork: 12, delegue: 6, code: 15,
+    scheduled: 6, connectors: 6, edito: 12, news: 10, automatiser: 10,
+    usage: 3, bonus: 3, ex1: 12, ex2: 8, ex3: 12, strat: 20
+  };
 
   var RANKS = [
     { at: 0, name: "Novice", icon: "🌱" },
@@ -732,9 +837,13 @@
     curIndex = i;
     var m = MISSIONS[i];
     document.getElementById("mIc").textContent = m.icon;
-    document.getElementById("mTag").textContent = "Niveau " + (i + 1) + " / " + TOTAL;
+    var mins = TIMES[m.id];
+    document.getElementById("mTag").innerHTML = "Niveau " + (i + 1) + " / " + TOTAL +
+      (mins ? ' <span class="tmin">⏱ ~' + mins + ' min</span>' : "");
     document.getElementById("mTitle").textContent = m.title;
-    document.getElementById("mBody").innerHTML = m.body;
+    var vid = VIDEOS[m.id];
+    var vidHtml = vid ? '<div class="m-video"><iframe src="' + vid + '" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>' : "";
+    document.getElementById("mBody").innerHTML = vidHtml + m.body;
     var vb = document.getElementById("validateBtn");
     if (state.done[m.id]) { vb.classList.add("reprendre"); vb.classList.remove("done"); vb.textContent = "↩ Reprendre ce niveau"; vb.disabled = false; }
     else { vb.classList.remove("reprendre", "done"); vb.textContent = "Valider ce niveau ✓"; vb.disabled = false; }
@@ -847,6 +956,7 @@
   // ----- Final -----
   var finalEl = document.getElementById("final");
   var SHORT = {
+    landscape: "Le paysage", eco: "Écologie", data: "Données",
     start: "Ouvrir Claude", firstprompt: "1er prompt", memory: "Mémoire GPT", design: "Design",
     pitch: "Pitch", assistant: "Assistant", cowork: "Cowork", delegue: "Déléguer", code: "Claude Code", scheduled: "Tâches auto",
     connectors: "Connect.", edito: "Édito", news: "News", automatiser: "Auto",
@@ -871,8 +981,66 @@
     if (cur) cur.scrollIntoView({ behavior: "smooth", block: "center" });
   });
 
-  // ----- Intro / start -----
+  // ----- Access gate -----
+  // ⬇️ UN CODE PAR SESSION. Ajoute une ligne par formation.
+  //   code    : le code à donner (insensible à la casse).
+  //   expires : dernier jour de validité INCLUS, format "AAAA-MM-JJ".
+  //             Mets null pour un code sans expiration (ex. code perso / test).
+  var ACCESS_CODES = [
+    { code: "IZIVIZI2026", expires: null },          // code général (toujours valable) — backup
+    { code: "BRASDROIT",   expires: "2026-09-29" }   // session de demain matin — expire le 29 au soir
+    // { code: "IZIVIZI-1510", expires: "2026-10-16" }, // exemple : prochaine session
+  ];
+  var GATE_KEY = "izivizi_access_v1";
+  var gate = document.getElementById("gate");
   var intro = document.getElementById("intro");
+  function openIntro() { gate.classList.remove("show"); intro.classList.add("show"); }
+  // Renvoie "ok", "expired" ou "wrong"
+  function checkCode(val) {
+    var v = (val || "").trim().toLowerCase();
+    if (!v) return "wrong";
+    var found = null;
+    for (var i = 0; i < ACCESS_CODES.length; i++) {
+      if (String(ACCESS_CODES[i].code).toLowerCase() === v) { found = ACCESS_CODES[i]; break; }
+    }
+    if (!found) return "wrong";
+    if (found.expires) {
+      var end = new Date(found.expires + "T23:59:59");
+      if (!isNaN(end.getTime()) && new Date() > end) return "expired";
+    }
+    return "ok";
+  }
+  function showGateError(msg) {
+    var err = document.getElementById("codeErr");
+    err.textContent = msg;
+    err.hidden = false;
+    gate.classList.add("shake");
+    setTimeout(function () { gate.classList.remove("shake"); }, 450);
+  }
+  function tryUnlock() {
+    var res = checkCode(document.getElementById("codeInput").value);
+    if (res === "ok") {
+      try { localStorage.setItem(GATE_KEY, "1"); } catch (e) {}
+      openIntro();
+    } else if (res === "expired") {
+      showGateError("Ce code a expiré. Demande le code de ta session.");
+    } else {
+      showGateError("Code incorrect — réessaie.");
+    }
+  }
+  (function initGate() {
+    var unlocked = false;
+    try { unlocked = localStorage.getItem(GATE_KEY) === "1"; } catch (e) {}
+    if (unlocked) { openIntro(); }
+    else { document.getElementById("codeInput").focus(); }
+  })();
+  document.getElementById("gateBtn").addEventListener("click", tryUnlock);
+  document.getElementById("codeInput").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); tryUnlock(); }
+    else { document.getElementById("codeErr").hidden = true; }
+  });
+
+  // ----- Intro / start -----
   document.getElementById("startBtn").addEventListener("click", function () {
     var nm = document.getElementById("nameInput").value.trim();
     if (nm) { state.name = nm; persist(); document.getElementById("brandTxt").textContent = "Parcours de " + nm; }
