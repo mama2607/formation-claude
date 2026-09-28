@@ -638,13 +638,11 @@
       '<ol class="m-steps"><li>Va dans <b>Paramètres → Personnaliser → Connecteurs</b> (le bouton t\'y emmène).</li><li>Choisis l\'outil et clique « Connecter ».</li><li>Autorise l\'accès avec ton compte.</li></ol>' +
       '<div class="m-actions"><a class="btn primary" href="https://claude.ai/settings" target="_blank" rel="noopener">Ouvrir mes paramètres ↗</a></div>' },
 
-    { id: "edito", icon: "📅", title: "Ton calendrier édito", body:
-      '<p class="m-lead">Un seul endroit pour planifier ton contenu réseaux. Claude te crée un <b>calendrier éditorial directement dans ton Notion</b>, sur-mesure.</p>' +
-      '<ol class="m-steps"><li><b>Connecte ton Notion</b> à Claude.</li><li>Copie le prompt ci-dessous et complète-le.</li><li>Claude <b>crée le calendrier dans ton Notion</b>, adapté à ton activité.</li></ol>' +
-      '<div class="m-card"><span class="lbl">Prompt à copier</span>' + PROMPT_EDITO + '</div>' +
-      '<div class="m-card"><span class="lbl">Ce que fait le prompt</span>Claude crée ton calendrier dans Notion, puis te propose une <b>automatisation Make</b> pour publier automatiquement sur tes réseaux (Insta, Facebook, newsletter, agendas culturels…).</div>' +
-      '<div class="m-card"><span class="lbl">Pas encore de calendrier ?</span>Aucun souci : le prompt demande à Claude de t\'en <b>créer un tout neuf</b> dans ton Notion, adapté à ton activité.</div>' +
-      '<div class="m-actions"><a class="btn primary" href="https://claude.ai/settings" target="_blank" rel="noopener">Connecter Notion ↗</a><button class="btn ghost" data-copy="' + esc(PROMPT_EDITO) + '" data-open="claude">Copier le prompt</button></div>' },
+    { id: "ex2", icon: "🗓️", title: "Organiser ta semaine", body:
+      '<p class="m-lead">Une <b>to-do claire</b>, et Claude qui <b>place les créneaux dans ton agenda</b> automatiquement. (Connecteur Agenda requis.)</p>' +
+      '<div class="m-card"><span class="lbl">Astuce</span>To-do sur papier&nbsp;? Prends-la simplement en <b>photo</b> et dépose l\'image dans Claude — il la lit tout seul.</div>' +
+      '<div class="m-card"><span class="lbl">Prompt à copier</span>« ' + "Voici ma to-do de la semaine : [liste ou photo]. Priorise-les, estime le temps de chaque tâche, puis crée les créneaux dans mon Google Agenda sur mes plages libres." + ' »</div>' +
+      '<div class="m-actions">' + copyBtn("Copier &amp; ouvrir Claude", PROMPT_ORGA) + '</div>' },
 
     { id: "news", icon: "📰", title: "Crée ta newsletter", body:
       '<p class="m-lead">Un espace où tu <b>déposes tes contenus au fil des semaines</b> (affiches, posts qui marchent, événements). Le jour où tu écris ta newsletter, tout est déjà là — Claude la rédige, et tu peux en faire une <b>tâche récurrente</b>.</p>' +
@@ -685,11 +683,13 @@
       '<div class="m-card"><span class="lbl">Prompt à copier — complète les slides</span>« Connecte-toi à <b>Canva</b>, duplique le template (slide 1 = accroche, slide 2 = contenu) et génère le carrousel :<br>Slide 1 :<br>Slide 2 :<br>Slide 3 :<br>… <i>(tu écris ton texte)</i> »</div>' +
       '<div class="m-actions">' + copyBtn("Copier le prompt &amp; ouvrir Claude", PROMPT_CANVA) + '</div>' },
 
-    { id: "ex2", icon: "🗓️", title: "Organiser ta semaine", body:
-      '<p class="m-lead">Une <b>to-do claire</b>, et Claude qui <b>place les créneaux dans ton agenda</b> automatiquement. (Connecteur Agenda requis.)</p>' +
-      '<div class="m-card"><span class="lbl">Astuce</span>To-do sur papier&nbsp;? Prends-la simplement en <b>photo</b> et dépose l\'image dans Claude — il la lit tout seul.</div>' +
-      '<div class="m-card"><span class="lbl">Prompt à copier</span>« ' + "Voici ma to-do de la semaine : [liste ou photo]. Priorise-les, estime le temps de chaque tâche, puis crée les créneaux dans mon Google Agenda sur mes plages libres." + ' »</div>' +
-      '<div class="m-actions">' + copyBtn("Copier &amp; ouvrir Claude", PROMPT_ORGA) + '</div>' },
+    { id: "edito", icon: "📅", title: "Ton calendrier édito", body:
+      '<p class="m-lead">Un seul endroit pour planifier ton contenu réseaux. Claude te crée un <b>calendrier éditorial directement dans ton Notion</b>, sur-mesure.</p>' +
+      '<ol class="m-steps"><li><b>Connecte ton Notion</b> à Claude.</li><li>Copie le prompt ci-dessous et complète-le.</li><li>Claude <b>crée le calendrier dans ton Notion</b>, adapté à ton activité.</li></ol>' +
+      '<div class="m-card"><span class="lbl">Prompt à copier</span>' + PROMPT_EDITO + '</div>' +
+      '<div class="m-card"><span class="lbl">Ce que fait le prompt</span>Claude crée ton calendrier dans Notion, puis te propose une <b>automatisation Make</b> pour publier automatiquement sur tes réseaux (Insta, Facebook, newsletter, agendas culturels…).</div>' +
+      '<div class="m-card"><span class="lbl">Pas encore de calendrier ?</span>Aucun souci : le prompt demande à Claude de t\'en <b>créer un tout neuf</b> dans ton Notion, adapté à ton activité.</div>' +
+      '<div class="m-actions"><a class="btn primary" href="https://claude.ai/settings" target="_blank" rel="noopener">Connecter Notion ↗</a><button class="btn ghost" data-copy="' + esc(PROMPT_EDITO) + '" data-open="claude">Copier le prompt</button></div>' },
 
     { id: "ex3", icon: "✉️", title: "Mail de prospection", body:
       '<p class="m-lead">Claude <b>trouve tes prospects locaux</b> (dans un rayon de X km) et dépose <b>tous les mails dans tes brouillons</b> Gmail. Tu n\'as plus qu\'à relire et envoyer. (Connecteur Gmail requis.)</p>' +
