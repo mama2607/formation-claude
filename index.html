@@ -727,6 +727,9 @@
     { at: 1, name: "Experte Claude", icon: "👑" }
   ];
   var TOTAL = MISSIONS.length;
+  // ⬇️ Plafond de progression. Les niveaux au-delà sont verrouillés (« au prochain cours »).
+  //    Séance 1 = 15. Pour la séance 2, mets 23 (ou TOTAL) pour tout ouvrir.
+  var MAX_LEVEL = 15;
   var KEY = "izivizi_parcours_v1";
 
   var state = { done: {}, name: "" };
@@ -778,11 +781,13 @@
     var fc = firstIncomplete();
     var reached = Math.max(state.reached || 0, fc); // done levels + the next one are always reachable
     if ((state.reached || 0) !== reached) { state.reached = reached; persist(); }
+    var cap = (typeof MAX_LEVEL === "number" ? MAX_LEVEL - 1 : TOTAL - 1); // dernier index accessible
     var els = nodeEls();
     MISSIONS.forEach(function (m, i) {
       var el = els[i];
       el.classList.remove("done", "current", "available", "locked");
       if (state.done[m.id]) el.classList.add("done");
+      else if (i > cap) el.classList.add("locked");        // au-delà de la séance -> verrouillé
       else if (i === fc) el.classList.add("current");     // earliest unfinished pulses
       else if (i <= reached) el.classList.add("available"); // skipped ahead, still open
       else el.classList.add("locked");
@@ -829,6 +834,9 @@
   var modal = document.getElementById("modal");
   var curIndex = -1;
   function onNodeClick(i) {
+    if (typeof MAX_LEVEL === "number" && i >= MAX_LEVEL && !state.done[MISSIONS[i].id]) {
+      toast("On verra la suite au prochain cours 👀✨", false); return;
+    }
     var el = nodeEls()[i];
     if (el.classList.contains("locked")) { toast("Termine le niveau précédent d'abord 🔒", false); return; }
     openMission(i);
