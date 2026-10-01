@@ -500,7 +500,8 @@
 "Slide 4 : \n" +
 "Slide 5 : \n" +
 "(Ajoute un CTA sur le dernier slide.)";
-  var PROMPT_ORGA = "Voici ma to-do de la semaine : [colle ta liste ou dépose une photo de ta to-do papier]. Priorise-les, estime le temps de chaque tâche, puis crée les créneaux dans mon Google Agenda sur mes plages libres, du lundi au vendredi.";
+  var PROMPT_ORGA_NOTION = "Crée-moi dans mon Notion une to-do list de la semaine : une base de données avec les colonnes Tâche, Priorité (Haute / Moyenne / Basse), Statut (À faire / En cours / Fait), Durée estimée et Jour. Ensuite je vais te dicter mes tâches à la voix — ajoute-les au fur et à mesure et classe-les par priorité.";
+  var PROMPT_ORGA = "À partir de ma to-do de la semaine dans Notion, planifie chaque tâche dans mon Google Agenda sur mes créneaux libres (du lundi au vendredi) : commence par les priorités hautes, tiens compte de la durée estimée et laisse-moi des pauses. (Tu peux aussi me laisser te dicter mes tâches, ou lire une photo de ma to-do papier.)";
   var PROMPT_MAIL = "Fais la liste de [type de prospects : ex. restaurants, boutiques, salles] dans un rayon de [X] km autour de [ville / adresse]. Pour chacun, rédige un mail de prospection personnalisé présentant [mon offre] — court, chaleureux, avec un objet accrocheur. Puis enregistre chaque mail dans mes brouillons Gmail (je les relis avant d'envoyer).";
   var PROMPT_FIRST = "Voici mon activité : [décris ton business en 2 phrases]. Pose-moi 3 questions pour bien cerner mes besoins, puis propose-moi 3 façons concrètes dont tu peux m'aider au quotidien.";
   var PROMPT_CODE = "Crée-moi un espace d'organisation sur mesure. Voici mes besoins : [décris ce que tu veux suivre — clients, tâches, contenus, rendez-vous…]. Fais-en un outil simple, visuel et agréable que je peux utiliser tous les jours.";
@@ -510,8 +511,8 @@
   var PROMPT_FILE = "Résume-moi ce document en 5 points clés et donne-moi les 3 actions à retenir.";
   var PROMPT_EDITO = "Crée-moi dans mon Notion un calendrier éditorial pour mes réseaux sociaux : une base de données avec plateforme, statut (idée / à créer / prêt / publié), date de publication, et une vue calendrier. Adapte-le à mon activité : [décris ton business et tes réseaux] et pré-remplis 2 semaines d'idées de contenu adaptées à ma cible. Une fois le calendrier prêt, crée une automatisation vers mes réseaux avec Make (pour publier automatiquement mon contenu programmé).";
   var PROMPT_DELEGUE = "Recherche pour moi les meilleures options de [ce que tu cherches] pour mon [business]. Critères : [budget, style, contraintes]. Compare 5 options dans un tableau avec prix, avantages/inconvénients et un lien pour voir ou acheter.";
-  var PROMPT_AUTO = "Voici mes outils connectés (Notion, Canva, ma to-do). Chaque semaine : prends les idées de contenu « à créer » dans mon Notion, crée les visuels dans Canva à partir de mon template, et ajoute les tâches de publication dans ma to-do. Puis résume-moi ce que tu as préparé.";
-  var PROMPT_NEWS = "Chaque mois, rédige ma newsletter à partir de : mon édito du moment, mes prochains événements et l'actu de mes réseaux sociaux. Ton chaleureux et proche de ma communauté. Structure : une accroche, mon édito, mes actus, un contenu à (re)voir, et un appel à l'action.";
+  var PROMPT_AUTO = "Chaque lundi, regarde dans mon Notion les idées de contenu au statut « À créer ». Pour chacune : rédige la légende (à mon ton de voix IZI VIZI), crée le visuel dans Canva à partir de mon template, passe l'idée en « Prêt », et ajoute une tâche de publication dans ma to-do avec la date prévue. Termine par un récap de tout ce que tu as préparé.";
+  var PROMPT_NEWS = "Rédige ma newsletter du mois à partir de : mon édito du moment, mes prochains événements et mes meilleurs posts récents. Ton chaleureux, proche de ma communauté. Structure : un objet accrocheur, une accroche, mon édito, mes actus, un contenu à (re)voir et un appel à l'action. Donne-moi aussi 3 idées d'objet. Mets le tout en forme, prêt à coller dans Brevo.";
   var PROMPT_STRAT_DOC = "Tu es mon stratège réseaux sociaux. Rédige ma stratégie de contenu complète, structurée et actionnable, sous forme d'un document clair (utilise un Artifact). Mon activité : [décris ton business, ta cible et tes offres en quelques phrases].\n\nSuis exactement cette structure :\n1. Contexte & pourquoi les réseaux sociaux pour mon activité\n2. Analyse du marché et de 2 concurrents (forces / faiblesses / ce que je peux faire mieux)\n3. Objectifs SMART et KPI à suivre\n4. Avatar client détaillé (qui, besoins, freins, où il/elle passe du temps)\n5. Plateforme de marque : mission, vision, valeurs, ton de voix\n6. Ligne éditoriale : funnel (découverte / considération / conversion), mes 4 piliers de contenu, formats recommandés\n7. Choix des réseaux et fréquence de publication réaliste\n8. Calendrier des 2 premières semaines : idées de posts concrètes (accroche + format + réseau)\n\nSois précis, donne des exemples adaptés à MON activité, et termine par les 3 premières actions à lancer cette semaine.";
   var PROMPT_STRAT = "Reprends la stratégie que tu viens de rédiger. Connecte-toi à Canva, duplique ce template : https://canva.link/tgssldsqy0eyojo et remplis-le avec le contenu de la stratégie, à mes couleurs IZI VIZI (doré #e7b142).";
   var PROMPT_ASSIST = "Tu es mon bras droit dans mon entreprise : [nom + activité]. Tu connais mon offre, ma cible et mon style, et tu écris toujours à ma sauce. Aide-moi à centraliser et faire avancer : l'administration (mails, contrats, assurances, suivi de dossiers), le recrutement (annonces, tri des candidatures, entretiens, onboarding), les procédures internes et guides d'accueil, la communication (TikTok, LinkedIn, YouTube, newsletters) et l'organisation des événements et le suivi des réservations/clients. Voici mes infos, mon ton de voix et 2-3 exemples de mes contenus : [colle-les]. Commence par me proposer comment tu peux m'aider cette semaine.";
@@ -639,29 +640,33 @@
       '<div class="m-actions"><a class="btn primary" href="https://claude.ai/settings" target="_blank" rel="noopener">Ouvrir mes paramètres ↗</a></div>' },
 
     { id: "ex2", icon: "🗓️", title: "Organiser ta semaine", body:
-      '<p class="m-lead">Une <b>to-do claire</b>, et Claude qui <b>place les créneaux dans ton agenda</b> automatiquement. (Connecteur Agenda requis.)</p>' +
-      '<div class="m-card"><span class="lbl">Astuce</span>To-do sur papier&nbsp;? Prends-la simplement en <b>photo</b> et dépose l\'image dans Claude — il la lit tout seul.</div>' +
-      '<div class="m-card"><span class="lbl">Prompt à copier</span>« ' + "Voici ma to-do de la semaine : [liste ou photo]. Priorise-les, estime le temps de chaque tâche, puis crée les créneaux dans mon Google Agenda sur mes plages libres." + ' »</div>' +
-      '<div class="m-actions">' + copyBtn("Copier &amp; ouvrir Claude", PROMPT_ORGA) + '</div>' },
+      '<p class="m-lead"><b>Dicte ta semaine à Claude</b> : il crée ta to-do dans <b>Notion</b> (triée par priorité) et peut même <b>poser les créneaux dans ton Google Agenda</b>. Choisis ton option 👇</p>' +
+      '<div class="m-card"><span class="lbl">💡 Le réflexe : dicte au lieu de taper</span>Dans Claude, clique le <b>micro 🎤</b> et dis tout haut tes tâches de la semaine — Claude les met en forme et les trie pour toi.</div>' +
+      '<div class="m-card"><span class="lbl">Option A · Ma to-do Notion (triée par priorité)</span>Claude crée une to-do Notion propre (Tâche, Priorité, Statut, Durée, Jour) et y range tes tâches. <i>Connecteur Notion.</i><div class="m-actions" style="margin-top:.7rem;"><button class="btn primary" data-copy="' + esc(PROMPT_ORGA_NOTION) + '" data-open="claude">Copier &amp; ouvrir Claude</button></div></div>' +
+      '<div class="m-card"><span class="lbl">Option B · Ma to-do + mon agenda</span>En plus, Claude <b>planifie chaque tâche dans ton Google Agenda</b> sur tes créneaux libres, en commençant par les priorités. <i>Connecteurs Notion + Google Agenda.</i><div class="m-actions" style="margin-top:.7rem;"><button class="btn primary" data-copy="' + esc(PROMPT_ORGA) + '" data-open="claude">Copier &amp; ouvrir Claude</button></div></div>' +
+      '<div class="m-card"><span class="lbl">Astuce</span>To-do sur papier&nbsp;? Prends-la en <b>photo</b> et dépose l\'image dans Claude — il la lit tout seul.</div>' +
+      '<p style="font-size:.8rem; color:var(--text-faint); margin-top:.1rem;">Pour une synchro permanente Notion ↔ Agenda (à chaque ajout), il existe <b>Make</b> (no-code). Pas besoin de script technique.</p>' },
 
     { id: "news", icon: "📰", title: "Crée ta newsletter", body:
-      '<p class="m-lead">Un espace où tu <b>déposes tes contenus au fil des semaines</b> (affiches, posts qui marchent, événements). Le jour où tu écris ta newsletter, tout est déjà là — Claude la rédige, et tu peux en faire une <b>tâche récurrente</b>.</p>' +
-      '<ol class="m-steps"><li>Ouvre ton <b>espace newsletter</b> : écris ton édito, tes événements, tes liens réseaux.</li><li>Clique <b>« Copier le brief »</b> → colle-le dans Claude, il rédige.</li><li>Programme une <b>tâche mensuelle</b> avec le prompt ci-dessous.</li></ol>' +
-      '<div class="m-card"><span class="lbl">Tâche récurrente — prompt à copier</span>' + PROMPT_NEWS + '</div>' +
-      '<div class="m-actions"><button class="btn primary" data-action="build-news">Créer mon espace newsletter ✨</button><button class="btn ghost" data-copy="' + esc(PROMPT_NEWS) + '" data-open="claude">Copier le prompt</button></div>' },
+      '<p class="m-lead">Crée une vraie newsletter avec un outil <b>100% gratuit</b> — <b>Brevo</b> (en français, simple). Claude rédige, tu colles, tu envoies.</p>' +
+      '<ol class="m-steps"><li>Crée un <b>compte gratuit Brevo</b> (bouton) et pars d\'un modèle de newsletter simple.</li><li>Au fil des semaines, garde tes contenus sous la main (édito, événements, meilleurs posts) — par ex. dans ton Notion.</li><li>Le jour J, copie le prompt → Claude <b>rédige ta newsletter</b> (objet + texte). Tu la <b>colles dans Brevo</b> et tu envoies.</li></ol>' +
+      '<div class="m-card"><span class="lbl">Prompt à copier</span>' + PROMPT_NEWS + '</div>' +
+      '<div class="m-card"><span class="lbl">Bonus · en automatique</span>Demande à Claude d\'en faire une <b>tâche mensuelle</b> : il prépare ta newsletter chaque mois à partir de tes contenus, tu n\'as plus qu\'à relire et envoyer.</div>' +
+      '<div class="m-actions"><a class="btn primary" href="https://www.brevo.com/fr/" target="_blank" rel="noopener">Créer mon compte Brevo (gratuit) ↗</a><button class="btn ghost" data-copy="' + esc(PROMPT_NEWS) + '" data-open="claude">Copier le prompt</button></div>' +
+      '<p style="font-size:.8rem; color:var(--text-faint); margin-top:.1rem;">Brevo : gratuit pour démarrer, interface française. Alternatives : MailerLite, Mailchimp.</p>' },
 
     { id: "automatiser", icon: "🔁", title: "Automatiser ta création de contenu", body:
-      '<p class="m-lead">Fais le <b>pont entre tes outils</b> : Claude prend tes idées dans Notion, crée les visuels dans Canva et remplit ta to-do — presque tout seul.</p>' +
-      '<ol class="m-steps"><li>Connecte <b>Notion, Canva</b> (et ta to-do) à Claude.</li><li>Copie le prompt ci-dessous et teste-le.</li><li>Transforme-le en <b>tâche programmée</b> pour que ça tourne chaque semaine.</li></ol>' +
+      '<p class="m-lead">La <b>chaîne complète</b>, presque sans toi : tes <b>idées dans Notion</b> → Claude <b>rédige + crée les visuels dans Canva</b> → il remplit ta <b>to-do de publication</b>. Chaque semaine, en automatique.</p>' +
+      '<ol class="m-steps"><li>Garde dans ton Notion un tableau d\'idées avec un statut <b>« À créer »</b> (celui du niveau <b>Calendrier édito</b> est parfait).</li><li>Connecte <b>Notion + Canva</b> à Claude, copie le prompt et teste-le une fois.</li><li>Transforme-le en <b>tâche programmée</b> (chaque lundi) — et ça tourne tout seul.</li></ol>' +
       '<div class="m-card"><span class="lbl">Prompt à copier</span>' + PROMPT_AUTO + '</div>' +
       '<div class="m-actions"><a class="btn primary" href="https://claude.ai/settings" target="_blank" rel="noopener">Connecter mes outils ↗</a><button class="btn ghost" data-copy="' + esc(PROMPT_AUTO) + '" data-open="claude">Copier le prompt</button></div>' +
-      '<div class="m-card"><span class="lbl">Idées d\'automatisations (via Make)</span><ul>' +
-      '<li>Un <b>message de bienvenue</b> auto à tes nouveaux abonnés Insta.</li>' +
-      '<li>Partager ton <b>event Facebook</b> dans des groupes tous les 2 jours.</li>' +
-      '<li>Ranger tes contenus (affiche, post qui marche) dans un <b>doc « prochaine newsletter »</b>.</li>' +
+      '<div class="m-card"><span class="lbl">Aller plus loin · relier tes réseaux avec Make</span>Pour publier automatiquement et toucher tes réseaux, on branche <b>Make</b> à tes outils :<ul>' +
+      '<li>Contenu passé en <b>« Prêt »</b> dans Notion → <b>publié</b> automatiquement.</li>' +
+      '<li><b>Message de bienvenue</b> auto à tes nouveaux abonnés.</li>' +
+      '<li>Tes meilleurs posts rangés dans ton espace <b>« prochaine newsletter »</b>.</li>' +
       '</ul></div>' +
-      '<div class="m-actions"><a class="btn ghost" href="https://www.make.com" target="_blank" rel="noopener">Découvrir Make ↗</a></div>' +
-      '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">Ces scénarios se montent avec <b>Make</b> (connecté à Claude). Certaines actions réseaux ont des limites côté Meta — on choisit le bon outil au cas par cas.</p>' },
+      '<div class="m-actions"><a class="btn ghost" href="https://www.make.com/fr" target="_blank" rel="noopener">Découvrir Make ↗</a></div>' +
+      '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">Certaines actions réseaux ont des limites côté Meta — on choisit le bon outil au cas par cas.</p>' },
 
     { id: "usage", icon: "🔋", title: "Vérifie ce qu'il te reste", body:
       '<p class="m-lead">Claude a des <b>limites d\'utilisation</b> selon ton forfait. Apprends à voir <b>ce qu\'il te reste</b> pour ne pas te retrouver bloquée en plein élan.</p>' +
@@ -703,6 +708,30 @@
       '<div class="m-card"><span class="lbl">Étape 2 · (optionnel) Mets-la en forme dans Canva</span>Une fois la stratégie rédigée, tu peux demander à Claude de la <b>couler dans ton template Canva</b>, à tes couleurs. Nécessite le connecteur Canva.<div class="m-actions" style="margin-top:.7rem;"><button class="btn ghost" data-copy="' + esc(PROMPT_STRAT) + '" data-open="claude">Copier le prompt Canva</button><a class="btn ghost" href="https://canva.link/tgssldsqy0eyojo" target="_blank" rel="noopener">Voir le template ↗</a></div></div>' +
       '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">💡 Astuce démo&nbsp;: fais l\'étape 1 en direct (rapide et fiable), et montre l\'étape 2 comme un bonus «&nbsp;à faire chez soi&nbsp;».</p>' }
   ];
+
+  // ⬇️ ORDRE D'AFFICHAGE DES NIVEAUX — change juste cette liste pour réordonner.
+  //    (Tous les id ci-dessus doivent y figurer une seule fois.)
+  var ORDER = [
+    "landscape", "start", "eco", "data", "firstprompt", "memory", "assistant",
+    "design", "pitch", "cowork", "delegue", "code", "scheduled", "connectors",
+    "ex2",        // 15 · Organiser ta semaine (fin de la séance 1)
+    "usage",      // 16 · Vérifie ce qu'il te reste
+    "bonus",      // 17 · Super-pouvoir bonus
+    "ex1",        // 18 · Créer un carrousel (Canva)
+    "news",       // 19 · Crée ta newsletter
+    "ex3",        // 20 · Mail de prospection
+    "strat",      // 21 · Stratégie digitale (avant le calendrier édito)
+    "edito",      // 22 · Calendrier édito
+    "automatiser" // 23 · Automatiser ta création de contenu (en dernier)
+  ];
+  (function reorderMissions() {
+    var byId = {};
+    MISSIONS.forEach(function (m) { byId[m.id] = m; });
+    var reordered = ORDER.map(function (id) { return byId[id]; }).filter(Boolean);
+    // sécurité : ajoute à la fin tout niveau oublié dans ORDER
+    MISSIONS.forEach(function (m) { if (ORDER.indexOf(m.id) === -1) reordered.push(m); });
+    MISSIONS = reordered;
+  })();
 
   // Optional short demo video per level (URL d'intégration, ex. YouTube "embed" ou Loom).
   // Laisse vide pour n'afficher aucune vidéo ; ajoute "id: 'lien'" pour l'afficher en haut du niveau.
