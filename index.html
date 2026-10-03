@@ -513,6 +513,8 @@
   var PROMPT_DELEGUE = "Recherche pour moi les meilleures options de [ce que tu cherches] pour mon [business]. Critères : [budget, style, contraintes]. Compare 5 options dans un tableau avec prix, avantages/inconvénients et un lien pour voir ou acheter.";
   var PROMPT_AUTO = "Chaque lundi, regarde dans mon Notion les idées de contenu au statut « À créer ». Pour chacune : rédige la légende (à mon ton de voix IZI VIZI), crée le visuel dans Canva à partir de mon template, passe l'idée en « Prêt », et ajoute une tâche de publication dans ma to-do avec la date prévue. Termine par un récap de tout ce que tu as préparé.";
   var PROMPT_NEWS = "Rédige ma newsletter du mois à partir de : mon édito du moment, mes prochains événements et mes meilleurs posts récents. Ton chaleureux, proche de ma communauté. Structure : un objet accrocheur, une accroche, mon édito, mes actus, un contenu à (re)voir et un appel à l'action. Donne-moi aussi 3 idées d'objet. Mets le tout en forme, prêt à coller dans Brevo.";
+  var PROMPT_INSTA_TEST = "Note mon profil Instagram @toncompte sur 100 et dis-moi les 3 choses à changer en priorité.";
+  var PROMPT_WEBSITE = "Aide-moi à créer une page de prise de rendez-vous pour mes coachings, à ajouter en page cachée sur mon site (WordPress / Elementor). Donne-moi : un titre et un texte court qui donnent envie de réserver, les bénéfices du coaching, le déroulé d'une séance, une FAQ courte, et l'emplacement pour intégrer mon calendrier de réservation (Cal.com ou Calendly). Puis explique-moi comment la rendre non visible (hors menu + non indexée, ou protégée par mot de passe) et récupérer le lien à partager. À mes couleurs IZI VIZI (doré #e7b142).";
   var PROMPT_STRAT_DOC = "Tu es mon stratège réseaux sociaux. Rédige ma stratégie de contenu complète, structurée et actionnable, sous forme d'un document clair (utilise un Artifact). Mon activité : [décris ton business, ta cible et tes offres en quelques phrases].\n\nSuis exactement cette structure :\n1. Contexte & pourquoi les réseaux sociaux pour mon activité\n2. Analyse du marché et de 2 concurrents (forces / faiblesses / ce que je peux faire mieux)\n3. Objectifs SMART et KPI à suivre\n4. Avatar client détaillé (qui, besoins, freins, où il/elle passe du temps)\n5. Plateforme de marque : mission, vision, valeurs, ton de voix\n6. Ligne éditoriale : funnel (découverte / considération / conversion), mes 4 piliers de contenu, formats recommandés\n7. Choix des réseaux et fréquence de publication réaliste\n8. Calendrier des 2 premières semaines : idées de posts concrètes (accroche + format + réseau)\n\nSois précis, donne des exemples adaptés à MON activité, et termine par les 3 premières actions à lancer cette semaine.";
   var PROMPT_STRAT = "Reprends la stratégie que tu viens de rédiger. Connecte-toi à Canva, duplique ce template : https://canva.link/tgssldsqy0eyojo et remplis-le avec le contenu de la stratégie, à mes couleurs IZI VIZI (doré #e7b142).";
   var PROMPT_ASSIST = "Tu es mon bras droit dans mon entreprise : [nom + activité]. Tu connais mon offre, ma cible et mon style, et tu écris toujours à ma sauce. Aide-moi à centraliser et faire avancer : l'administration (mails, contrats, assurances, suivi de dossiers), le recrutement (annonces, tri des candidatures, entretiens, onboarding), les procédures internes et guides d'accueil, la communication (TikTok, LinkedIn, YouTube, newsletters) et l'organisation des événements et le suivi des réservations/clients. Voici mes infos, mon ton de voix et 2-3 exemples de mes contenus : [colle-les]. Commence par me proposer comment tu peux m'aider cette semaine.";
@@ -688,6 +690,42 @@
       '<div class="m-card"><span class="lbl">Prompt à copier — complète les slides</span>« Connecte-toi à <b>Canva</b>, duplique le template (slide 1 = accroche, slide 2 = contenu) et génère le carrousel :<br>Slide 1 :<br>Slide 2 :<br>Slide 3 :<br>… <i>(tu écris ton texte)</i> »</div>' +
       '<div class="m-actions">' + copyBtn("Copier le prompt &amp; ouvrir Claude", PROMPT_CANVA) + '</div>' },
 
+    { id: "instateam", icon: "📸", title: "Installer ton équipe Instagram", body:
+      '<p class="m-lead"><b>13 petits assistants</b> dans Claude pour trouver des idées, écrire tes réels, carrousels et légendes, et répondre à ta communauté. <b>Toi, tu gardes la main</b> sur ce qui sort.</p>' +
+      '<div class="m-card"><span class="lbl">C\'est quoi, un plugin&nbsp;?</span>Un pack que tu ajoutes à Claude : des <b>skills</b> (savoir-faire prêts à l\'emploi). Une fois installé, tu parles normalement et Claude sort le bon assistant tout seul.</div>' +
+      '<ol class="m-steps"><li>Ouvre l\'<b>app Claude sur ton ordi</b> (pas la version web) et va dans <b>Cowork</b>.</li><li>Installe le <b>plugin Instagram</b>. Les menus bougent souvent — sinon demande à Claude&nbsp;: «&nbsp;aide-moi à installer le plugin Instagram&nbsp;».</li><li>Prêt en 2 minutes.</li></ol>' +
+      '<div class="m-card"><span class="lbl">⭐ La règle d\'or</span>Ces assistants écrivent bien, mais pas <b>encore comme toi</b>. Crée d\'abord ta <b>fiche fondation</b> (business, cible, offres) et ton skill <b>« ta voix »</b>. Puis ajoute toujours&nbsp;: «&nbsp;<b>utilise ma voix et ma fiche fondation</b>&nbsp;». Et <b>relis tout avant de publier</b>.</div>' +
+      '<div class="m-card"><span class="lbl">1 · Trouver quoi poster</span><ul>' +
+      '<li><b>ig-viral</b> — les réels qui cartonnent dans ton secteur + des idées à tourner.</li>' +
+      '<li><b>ig-plan</b> — ta semaine : quoi poster, quel format, quel jour.</li>' +
+      '<li><b>ig-profile</b> — note ton profil /100 et réécrit ce qui te fait perdre des points.</li>' +
+      '<li><b>ig-audit</b> — colle tes stats : ce qui marche, ce que tu arrêtes.</li>' +
+      '</ul></div>' +
+      '<div class="m-card"><span class="lbl">2 · Créer tes contenus</span><ul>' +
+      '<li><b>ig-reel</b> — accroches, texte à dire, texte à l\'écran, découpage plan par plan.</li>' +
+      '<li><b>ig-carousel</b> — la couverture + chaque slide, au bon format (1080×1350).</li>' +
+      '<li><b>ig-caption</b> — légende : 1re ligne qui accroche, une seule action, 3 hashtags.</li>' +
+      '<li><b>ig-story</b> — ta séquence de stories + les bons stickers (sondage, question).</li>' +
+      '<li><b>ig-repurpose</b> — transforme un article / podcast en une semaine de contenus.</li>' +
+      '<li><b>ig-human</b> — enlève les traces «&nbsp;écrit par IA&nbsp;». À passer avant de publier.</li>' +
+      '</ul></div>' +
+      '<div class="m-card"><span class="lbl">3 · Parler à ta communauté</span><ul>' +
+      '<li><b>ig-reply</b> — trie les commentaires et propose des réponses (prospects d\'abord).</li>' +
+      '<li><b>ig-comment</b> — des commentaires humains chez les autres (10 min/jour d\'engagement).</li>' +
+      '<li><b>ig-dm</b> — premiers messages, propositions de collab, relances sans être lourde.</li>' +
+      '</ul></div>' +
+      '<div class="m-card"><span class="lbl">Ce qu\'ils ne font pas</span>Rien tout seuls : ils bossent quand tu demandes. Ils ne <b>publient pas</b> à ta place et ne lisent pas tes stats seuls. Pour publier : ton outil de programmation (Meta Business Suite, Metricool…). Pour les stats : colle-les ou fais une capture.</div>' +
+      '<div class="m-card"><span class="lbl">🔥 Ton premier test (2 min)</span>«&nbsp;Note mon profil Instagram <b>@toncompte</b> sur 100 et dis-moi les 3 choses à changer en priorité.&nbsp;»<div class="m-actions" style="margin-top:.7rem;"><button class="btn primary" data-copy="' + esc(PROMPT_INSTA_TEST) + '" data-open="claude">Copier le test &amp; ouvrir Claude</button></div></div>' +
+      '<div class="m-actions"><a class="btn ghost" href="https://mama2607.github.io/formation-claude/IZI-VIZI_Ton-equipe-Instagram.pdf" target="_blank" rel="noopener">📄 Télécharger la fiche complète ↗</a></div>' },
+
+    { id: "website", icon: "🌐", title: "Améliore ton site web", body:
+      '<p class="m-lead">Crée une <b>page cachée de prise de rendez-vous</b> pour tes coachings — pas dans ton menu, juste un lien que tu envoies à tes prospects. Claude te la prépare de A à Z.</p>' +
+      '<ol class="m-steps"><li>Prends un outil de réservation <b>gratuit</b> : <b>Cal.com</b> ou <b>Calendly</b> → récupère ton lien de prise de RDV.</li><li>Copie le prompt : Claude rédige la <b>page</b> (texte qui donne envie, bénéfices, déroulé d\'une séance, FAQ) + l\'emplacement pour ton calendrier.</li><li>Ajoute-la sur ton site en <b>page cachée</b> : hors menu + <b>non indexée</b> (ou protégée par mot de passe). Tu partages juste le lien.</li></ol>' +
+      '<div class="m-card"><span class="lbl">Prompt à copier</span>' + PROMPT_WEBSITE + '</div>' +
+      '<div class="m-card"><span class="lbl">💡 Via Cowork, directement dans WordPress</span>Avec l\'extension <b>Cowork</b>, ouvre ton <b>tableau de bord WordPress / Elementor</b> et demande à Claude de t\'aider à créer la page et à la régler en «&nbsp;non indexée / hors menu&nbsp;» dans l\'onglet, à côté de toi.</div>' +
+      '<div class="m-actions"><button class="btn primary" data-copy="' + esc(PROMPT_WEBSITE) + '" data-open="claude">Copier &amp; ouvrir Claude</button><a class="btn ghost" href="https://cal.com" target="_blank" rel="noopener">Cal.com (gratuit) ↗</a></div>' +
+      '<p style="font-size:.8rem; color:var(--text-faint); margin-top:.1rem;">Claude n\'a pas d\'accès direct à ton hébergement (FTP) : il crée la page et te guide pas à pas — tu la colles dans WordPress, ou tu le laisses agir via Cowork dans ton admin.</p>' },
+
     { id: "edito", icon: "📅", title: "Ton calendrier édito", body:
       '<p class="m-lead">Un seul endroit pour planifier ton contenu réseaux. Claude te crée un <b>calendrier éditorial directement dans ton Notion</b>, sur-mesure.</p>' +
       '<ol class="m-steps"><li><b>Connecte ton Notion</b> à Claude.</li><li>Copie le prompt ci-dessous et complète-le.</li><li>Claude <b>crée le calendrier dans ton Notion</b>, adapté à ton activité.</li></ol>' +
@@ -718,11 +756,13 @@
     "usage",      // 16 · Vérifie ce qu'il te reste
     "bonus",      // 17 · Super-pouvoir bonus
     "ex1",        // 18 · Créer un carrousel (Canva)
-    "news",       // 19 · Crée ta newsletter
-    "ex3",        // 20 · Mail de prospection
-    "strat",      // 21 · Stratégie digitale (avant le calendrier édito)
-    "edito",      // 22 · Calendrier édito
-    "automatiser" // 23 · Automatiser ta création de contenu (en dernier)
+    "instateam",  // 19 · Installer ton équipe Instagram
+    "news",       // 20 · Crée ta newsletter
+    "ex3",        // 21 · Mail de prospection
+    "website",    // 22 · Améliore ton site web (page RDV coaching)
+    "strat",      // 23 · Stratégie digitale (avant le calendrier édito)
+    "edito",      // 24 · Calendrier édito
+    "automatiser" // 25 · Automatiser ta création de contenu (en dernier)
   ];
   (function reorderMissions() {
     var byId = {};
@@ -745,7 +785,7 @@
     landscape: 4, start: 2, eco: 5, data: 4, firstprompt: 5, memory: 8,
     assistant: 12, design: 15, pitch: 12, cowork: 12, delegue: 6, code: 15,
     scheduled: 6, connectors: 6, edito: 12, news: 10, automatiser: 10,
-    usage: 3, bonus: 3, ex1: 12, ex2: 8, ex3: 12, strat: 20
+    usage: 3, bonus: 3, ex1: 12, ex2: 8, ex3: 12, strat: 20, instateam: 10, website: 12
   };
 
   var RANKS = [
@@ -997,7 +1037,7 @@
     start: "Ouvrir Claude", firstprompt: "1er prompt", memory: "Mémoire GPT", design: "Design",
     pitch: "Pitch", assistant: "Assistant", cowork: "Cowork", delegue: "Déléguer", code: "Claude Code", scheduled: "Tâches auto",
     connectors: "Connect.", edito: "Édito", news: "News", automatiser: "Auto",
-    usage: "Usage", bonus: "Bonus", ex1: "Carrousel", ex2: "Orga", ex3: "Prospect.", strat: "Stratégie"
+    usage: "Usage", bonus: "Bonus", ex1: "Carrousel", ex2: "Orga", ex3: "Prospect.", strat: "Stratégie", instateam: "Équipe Insta", website: "Site web"
   };
   function celebrate() {
     var bd = document.getElementById("finalBadges");
