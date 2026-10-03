@@ -535,6 +535,32 @@
   function copyBtn(label, prompt) { return '<button class="btn primary" data-copy="' + esc(prompt) + '" data-open="claude">' + label + '</button>'; }
   function esc(s) { return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
+  // ----- Prompts des 13 assistants Instagram (copiables dans le jeu) -----
+  var IG_START = "Je suis [ton métier] à [ta ville]. Mon compte Instagram : @[toncompte]. Ma cible : [qui tu veux toucher]. Ce que je vends : [tes offres].\nLis ma fiche fondation et mon skill de voix. À partir de maintenant, pour tout ce qui touche à mon Instagram : écris en français, en tutoiement, avec ma voix, et passe toujours le texte final à ig-human pour enlever ce qui sonne IA. Confirme-moi que tu as bien tout compris en 3 lignes.";
+  var IG_SCHED = [
+    { id:"ig-plan", emoji:"🗓️", name:"Le planificateur", when:"⏰ Chaque lundi 8h", desc:"Ta semaine Insta planifiée dans ton Notion (posts, formats, jours) + 5 comptes avec qui interagir.", prompt:"Crée une tâche programmée : chaque lundi à 8h, utilise ig-plan pour planifier ma semaine Instagram. Je veux [3] posts par semaine (réels + carrousels) et des stories tous les jours. Tiens compte de mon actu du moment dans ma fiche fondation et de mes offres à pousser. Ajoute chaque contenu dans mon calendrier édito Notion [nom de ta base] avec la date, le format, l'idée et le statut \"À créer\". Ajoute aussi une liste de 5 comptes locaux avec qui interagir cette semaine." },
+    { id:"ig-reel", emoji:"🎬", name:"Le scénariste", when:"⏰ Chaque mardi 9h", desc:"Tes scripts de réels : 3 accroches, texte à dire, texte à l'écran, plan par plan.", prompt:"Crée une tâche programmée : chaque mardi à 9h, regarde dans mon calendrier édito Notion les réels de la semaine au statut \"À créer\". Pour chacun, utilise ig-reel pour écrire : 3 accroches au choix, le texte à dire, le texte à l'écran et le plan par plan. Mets tout dans la page Notion du réel et passe le statut à \"Script prêt\". Utilise ma voix." },
+    { id:"ig-carousel", emoji:"🖼️", name:"Le roi du carrousel", when:"⏰ Chaque mercredi 9h", desc:"Couverture (3 propositions) + texte de chaque slide, prêt à mettre en page dans Canva.", prompt:"Crée une tâche programmée : chaque mercredi à 9h, regarde dans mon calendrier édito Notion les carrousels de la semaine au statut \"À créer\". Pour chacun, utilise ig-carousel pour écrire la couverture (3 propositions) et le texte de chaque slide (7 slides max). Mets tout dans la page Notion du carrousel et passe le statut à \"Texte prêt\". Je ferai la mise en page dans Canva." },
+    { id:"ig-caption", emoji:"✍️", name:"La plume", when:"⏰ Chaque jeudi 9h", desc:"Tes légendes : 1re ligne qui accroche, une seule action demandée, 3 hashtags dont 1 local.", prompt:"Crée une tâche programmée : chaque jeudi à 9h, pour chaque contenu de la semaine dans mon calendrier édito Notion qui n'a pas encore de légende, utilise ig-caption pour écrire la légende : une 1re ligne qui donne envie de cliquer sur \"plus\", un texte court, une seule action demandée et 3 hashtags dont 1 local. Passe-la ensuite à ig-human. Ajoute-la dans la page Notion et passe le statut à \"À valider\"." },
+    { id:"ig-story", emoji:"📱", name:"La conteuse", when:"⏰ Du lundi au vendredi 8h30", desc:"Ta séquence de stories du jour (4-6 écrans) + les bons stickers (sondage, question…).", prompt:"Crée une tâche programmée : du lundi au vendredi à 8h30, utilise ig-story pour me proposer la séquence de stories du jour (4 à 6 écrans) : quoi montrer, le texte de chaque écran et le sticker à utiliser (sondage, question, quiz...). Base-toi sur mon calendrier édito de la semaine et mes offres du moment. Une story sur 5 max doit vendre. Envoie-moi ça en résumé court, lisible sur mon téléphone." },
+    { id:"ig-viral", emoji:"🔎", name:"Le chasseur de tendances", when:"⏰ Le 1er du mois 9h", desc:"Les réels qui cartonnent dans ta niche → 10 idées à tourner, rangées dans ton Notion.", prompt:"Crée une tâche programmée : le 1er de chaque mois à 9h, utilise ig-viral pour trouver les réels qui cartonnent en ce moment chez [ton métier] en Belgique et en France. Classe-les selon à quel point ils ont dépassé la moyenne de leur propre compte, donne-moi l'accroche utilisée pour chacun, puis transforme le tout en 10 idées de réels que je peux tourner chez moi. Ajoute les 10 idées dans mon calendrier édito Notion avec le statut \"Idée\"." },
+    { id:"ig-audit", emoji:"📊", name:"L'analyste", when:"⏰ Le 1er du mois 10h", desc:"Ton bilan du mois (3 tops, 3 flops, ce que tu arrêtes) + 3 actions concrètes.", prompt:"Crée une tâche programmée : le 1er de chaque mois à 10h, demande-moi de te coller mes statistiques Instagram du mois (ou une capture d'écran de mes statistiques). Ensuite, utilise ig-audit pour me dire : mes 3 meilleurs contenus et pourquoi, mes 3 flops et pourquoi, ce que je fais plus, ce que j'arrête. Termine par 3 actions concrètes pour le mois qui commence." }
+  ];
+  var IG_DEMAND = [
+    { id:"ig-profile", emoji:"⭐", name:"Le coach de profil", when:"👆 Au début, puis tous les 3 mois", desc:"Note ton profil Instagram /100 + te propose 3 nouvelles bios dans ta voix.", prompt:"Utilise ig-profile pour noter mon profil Instagram @[toncompte] sur 100. Regarde mon nom, ma bio, mon lien, mes stories à la une, mes 3 posts épinglés et ma grille. Donne-moi les 3 choses à changer en priorité et propose-moi 3 nouvelles bios dans ma voix." },
+    { id:"ig-repurpose", emoji:"♻️", name:"La recycleuse", when:"👆 Quand tu as un contenu long", desc:"Un article / podcast / vidéo → une semaine de réels et carrousels, avec tes mots.", prompt:"Utilise ig-repurpose pour transformer ce contenu en une semaine d'Instagram : [colle ton article, ta newsletter, la transcription de ta vidéo ou de ton podcast]. Je veux 3 réels et 2 carrousels, avec l'accroche et le plan de chacun. Garde mes mots et mes exemples, ne rajoute rien que je n'ai pas dit." },
+    { id:"ig-human", emoji:"🧼", name:"L'anti-IA", when:"👆 Avant de publier n'importe quel texte", desc:"Enlève tout ce qui sonne IA + te donne une note /10 et la version corrigée.", prompt:"Utilise ig-human sur ce texte : [colle ton texte]. Enlève tout ce qui sonne IA (longs tirets, mots tout faits, phrases trop parfaites), donne-moi une note sur 10 et la version corrigée. Garde mon sens et ma longueur." },
+    { id:"ig-reply", emoji:"💬", name:"Le community manager", when:"👆 Après chaque post, ou 1x/jour", desc:"Trie les commentaires (prospects d'abord) + réponses prêtes, même pour les négatifs.", prompt:"Utilise ig-reply sur les commentaires de mon dernier post : [colle les commentaires ou mets une capture d'écran]. Trie-les : d'abord les prospects, puis les questions, puis le reste. Propose une réponse courte et chaleureuse pour ceux qui valent le coup, et dis-moi comment répondre à un commentaire négatif sans m'énerver." },
+    { id:"ig-comment", emoji:"🤝", name:"L'ambassadrice", when:"👆 Tes 10 min d'engagement du jour", desc:"Des commentaires humains chez les autres, qui apportent et ne parlent pas de toi.", prompt:"Utilise ig-comment : voici [3 à 5] posts de comptes que je veux soutenir (commerces voisins, partenaires, clients) : [colle les liens ou les captures]. Écris-moi un commentaire pour chacun qui sonne comme moi, qui apporte quelque chose et qui ne parle pas de mon business." },
+    { id:"ig-dm", emoji:"✉️", name:"La messagère", when:"👆 Quand tu veux contacter quelqu'un", desc:"DM, propositions de collab, relances — court, humain, sans copier-coller commercial.", prompt:"Utilise ig-dm pour écrire un message privé à [@compte], qui [explique la situation : a liké mon post, est un commerce voisin, une créatrice que je veux pour une collab...]. Mon objectif : [lui proposer X]. Fais court, humain, sans copier-coller commercial, puis écris aussi 2 relances si elle ne répond pas." }
+  ];
+  function igCard(a) {
+    return '<div class="m-card"><span class="lbl">' + a.emoji + ' ' + a.name + ' · ' + a.id + '</span>' +
+      '<div style="font-size:.68rem;color:var(--text-faint);font-family:var(--exp);text-transform:uppercase;letter-spacing:.08em;margin:-.3rem 0 .45rem;">' + a.when + '</div>' +
+      a.desc +
+      '<div class="m-actions" style="margin-top:.6rem;"><button class="btn primary" data-copy="' + esc(a.prompt) + '" data-open="claude">Copier le prompt</button></div></div>';
+  }
+
   var PROMPT_ECO = "Aide-moi à estimer mon empreinte carbone perso et à situer l'IA par rapport à la viande, l'avion, la voiture et le chauffage. Donne-moi les 3 leviers où j'ai le plus d'impact, et dis-moi franchement si mon usage de l'IA vaut la peine que je m'en inquiète ou si je gagnerais plus à agir ailleurs.";
   var PROMPT_DATA = "Explique-moi simplement ce que deviennent mes données quand j'utilise Claude et quand je connecte mes outils (Gmail, Canva, Notion) : ce qui sert à l'entraînement, comment le désactiver, et 3 bonnes pratiques RGPD pour mon business.";
 
@@ -698,29 +724,13 @@
       '<div class="m-card"><span class="lbl">C\'est quoi, un plugin&nbsp;?</span>Un pack que tu ajoutes à Claude : des <b>skills</b> (savoir-faire prêts à l\'emploi). Une fois installé, tu parles normalement et Claude sort le bon assistant tout seul.</div>' +
       '<ol class="m-steps"><li>Ouvre l\'<b>app Claude sur ton ordi</b> (pas la version web) et va dans <b>Cowork</b>.</li><li>Installe le <b>plugin Instagram</b>. Les menus bougent souvent — sinon demande à Claude&nbsp;: «&nbsp;aide-moi à installer le plugin Instagram&nbsp;».</li><li>Prêt en 2 minutes.</li></ol>' +
       '<div class="m-card"><span class="lbl">⭐ La règle d\'or</span>Ces assistants écrivent bien, mais pas <b>encore comme toi</b>. Crée d\'abord ta <b>fiche fondation</b> (business, cible, offres) et ton skill <b>« ta voix »</b>. Puis ajoute toujours&nbsp;: «&nbsp;<b>utilise ma voix et ma fiche fondation</b>&nbsp;». Et <b>relis tout avant de publier</b>.</div>' +
-      '<div class="m-card"><span class="lbl">1 · Trouver quoi poster</span><ul>' +
-      '<li><b>ig-viral</b> — les réels qui cartonnent dans ton secteur + des idées à tourner.</li>' +
-      '<li><b>ig-plan</b> — ta semaine : quoi poster, quel format, quel jour.</li>' +
-      '<li><b>ig-profile</b> — note ton profil /100 et réécrit ce qui te fait perdre des points.</li>' +
-      '<li><b>ig-audit</b> — colle tes stats : ce qui marche, ce que tu arrêtes.</li>' +
-      '</ul></div>' +
-      '<div class="m-card"><span class="lbl">2 · Créer tes contenus</span><ul>' +
-      '<li><b>ig-reel</b> — accroches, texte à dire, texte à l\'écran, découpage plan par plan.</li>' +
-      '<li><b>ig-carousel</b> — la couverture + chaque slide, au bon format (1080×1350).</li>' +
-      '<li><b>ig-caption</b> — légende : 1re ligne qui accroche, une seule action, 3 hashtags.</li>' +
-      '<li><b>ig-story</b> — ta séquence de stories + les bons stickers (sondage, question).</li>' +
-      '<li><b>ig-repurpose</b> — transforme un article / podcast en une semaine de contenus.</li>' +
-      '<li><b>ig-human</b> — enlève les traces «&nbsp;écrit par IA&nbsp;». À passer avant de publier.</li>' +
-      '</ul></div>' +
-      '<div class="m-card"><span class="lbl">3 · Parler à ta communauté</span><ul>' +
-      '<li><b>ig-reply</b> — trie les commentaires et propose des réponses (prospects d\'abord).</li>' +
-      '<li><b>ig-comment</b> — des commentaires humains chez les autres (10 min/jour d\'engagement).</li>' +
-      '<li><b>ig-dm</b> — premiers messages, propositions de collab, relances sans être lourde.</li>' +
-      '</ul></div>' +
+      '<div class="m-card"><span class="lbl">▶️ Étape 0 · le prompt de départ</span>À coller <b>une seule fois</b>, avant tout le reste : il cale ta voix, ta fiche fondation, et le passage systématique par ig-human.<div class="m-actions" style="margin-top:.6rem;"><button class="btn primary" data-copy="' + esc(IG_START) + '" data-open="claude">Copier le prompt de départ</button></div></div>' +
+      '<p class="m-lead" style="margin-top:.4rem;"><b>⏰ Les assistants à programmer</b> — colle le prompt une fois, Claude crée la <b>tâche programmée</b>, et ça tourne tout seul chaque semaine.</p>' +
+      IG_SCHED.map(igCard).join("") +
+      '<p class="m-lead" style="margin-top:.4rem;"><b>👆 Les assistants à la demande</b> — appelle-les quand tu en as besoin.</p>' +
+      IG_DEMAND.map(igCard).join("") +
       '<div class="m-card"><span class="lbl">Ce qu\'ils ne font pas</span>Rien tout seuls : ils bossent quand tu demandes. Ils ne <b>publient pas</b> à ta place et ne lisent pas tes stats seuls. Pour publier : ton outil de programmation (Meta Business Suite, Metricool…). Pour les stats : colle-les ou fais une capture.</div>' +
-      '<div class="m-card"><span class="lbl">🔥 Ton premier test (2 min)</span>«&nbsp;Note mon profil Instagram <b>@toncompte</b> sur 100 et dis-moi les 3 choses à changer en priorité.&nbsp;»<div class="m-actions" style="margin-top:.7rem;"><button class="btn primary" data-copy="' + esc(PROMPT_INSTA_TEST) + '" data-open="claude">Copier le test &amp; ouvrir Claude</button></div></div>' +
-      '<div class="m-card"><span class="lbl">📝 Tous les prompts prêts à copier</span>Le <b>prompt de chaque assistant</b> (à programmer chaque semaine ou à utiliser à la demande), le prompt de départ et ta <b>semaine type</b> — tout est dans ta page Notion.</div>' +
-      '<div class="m-actions"><a class="btn primary" href="https://app.notion.com/p/Mes-13-assistants-Instagram-les-prompts-3ee99f2a5ff8814faf02fb35c9b0d816" target="_blank" rel="noopener">📝 Les 13 prompts (Notion) ↗</a><a class="btn ghost" href="https://mama2607.github.io/formation-claude/IZI-VIZI_Ton-equipe-Instagram.pdf" target="_blank" rel="noopener">📄 Télécharger la fiche ↗</a></div>' },
+      '<div class="m-actions"><a class="btn ghost" href="https://app.notion.com/p/Mes-13-assistants-Instagram-les-prompts-3ee99f2a5ff8814faf02fb35c9b0d816" target="_blank" rel="noopener">📝 Les prompts sur Notion ↗</a><a class="btn ghost" href="https://mama2607.github.io/formation-claude/IZI-VIZI_Ton-equipe-Instagram.pdf" target="_blank" rel="noopener">📄 Fiche PDF ↗</a></div>' },
 
     { id: "website", icon: "🌐", title: "Améliore ton site web", body:
       '<p class="m-lead">Crée une <b>page cachée de prise de rendez-vous</b> pour tes coachings — pas dans ton menu, juste un lien que tu envoies à tes prospects. Claude te la prépare de A à Z.</p>' +
@@ -780,6 +790,7 @@
   // Optional short demo video per level (URL d'intégration, ex. YouTube "embed" ou Loom).
   // Laisse vide pour n'afficher aucune vidéo ; ajoute "id: 'lien'" pour l'afficher en haut du niveau.
   var VIDEOS = {
+    instateam: "https://www.youtube.com/embed/TrE2K3svx5k",
     // landscape: "https://www.youtube.com/embed/XXXXXXXX",
     // design: "https://www.loom.com/embed/XXXXXXXX",
   };
