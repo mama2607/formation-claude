@@ -278,6 +278,24 @@
   .m-steps { margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.7rem; counter-reset: s; }
   .m-steps li { position: relative; padding-left: 2.7em; font-size: 1rem; line-height: 1.45; text-align: left; }
   .m-steps li::before { position: absolute; left: 0; top: 0.05em; counter-increment: s; content: counter(s); font-family: var(--display); font-weight: 700; color: var(--ink); background: var(--gold); width: 1.7em; height: 1.7em; border-radius: 50%; display: grid; place-items: center; font-size: 0.85em; }
+  /* Quiz final */
+  .q-head { display: flex; justify-content: space-between; font-family: var(--exp); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.75rem; color: var(--text-faint); margin-bottom: 0.7rem; }
+  .q-head b { color: var(--gold-deep); }
+  .q-sit { font-family: var(--display); font-weight: 600; font-size: 1.2rem; line-height: 1.3; color: var(--text); margin-bottom: 1rem; }
+  .q-opts { display: grid; gap: 0.6rem; }
+  .q-opt { display: flex; align-items: center; gap: 0.7rem; width: 100%; text-align: left; font: inherit; font-weight: 600; color: var(--text); background: #fff; border: 1.5px solid var(--line-strong); border-radius: 12px; padding: 0.8rem 1rem; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+  .q-opt:hover:not([disabled]) { background: rgba(231, 177, 66, 0.1); border-color: var(--gold); }
+  .q-opt .q-ic { font-size: 1.4rem; flex: none; }
+  .q-opt.correct { background: #e9f7ec; border-color: #2e9b4e; color: #1d6b36; }
+  .q-opt.wrong { background: #fdecea; border-color: #d7584b; color: #a3332a; }
+  .q-opt.dim { opacity: 0.5; }
+  .q-opt[disabled] { cursor: default; }
+  .q-fb { margin-top: 0.9rem; border-radius: 12px; padding: 0.8rem 1rem; font-size: 0.95rem; line-height: 1.45; }
+  .q-fb.ok { background: #e9f7ec; color: #1d6b36; }
+  .q-fb.no { background: #fdecea; color: #a3332a; }
+  .q-result { text-align: center; padding: 1rem 0 0.4rem; }
+  .q-score { font-family: var(--display); font-weight: 700; font-size: 3rem; color: var(--gold); line-height: 1; }
+  .q-result p { color: var(--text-dim); margin-top: 0.6rem; font-size: 1.05rem; }
   .m-card {
     background: rgba(231, 177, 66, 0.08);
     border: 1.5px dashed var(--gold);
@@ -763,7 +781,20 @@
       '<p class="m-lead">Une <b>vraie stratégie de contenu</b> complète&nbsp;: contexte, marché &amp; concurrents, objectifs, avatar client, plateforme de marque, ligne éditoriale et calendrier des premiers posts. On procède en <b>2 temps</b>.</p>' +
       '<div class="m-card"><span class="lbl">Étape 1 · Claude rédige ta stratégie</span>Colle le prompt et remplace le <b>[crochet]</b> par ton activité. Claude te livre un <b>document structuré et complet</b>, prêt à utiliser — pas besoin de connecter quoi que ce soit.<div class="m-actions" style="margin-top:.7rem;"><button class="btn primary" data-copy="' + esc(PROMPT_STRAT_DOC) + '" data-open="claude">Copier &amp; ouvrir Claude</button></div></div>' +
       '<div class="m-card"><span class="lbl">Étape 2 · (optionnel) Mets-la en forme dans Canva</span>Une fois la stratégie rédigée, tu peux demander à Claude de la <b>couler dans ton template Canva</b>, à tes couleurs. Nécessite le connecteur Canva.<div class="m-actions" style="margin-top:.7rem;"><button class="btn ghost" data-copy="' + esc(PROMPT_STRAT) + '" data-open="claude">Copier le prompt Canva</button><a class="btn ghost" href="https://canva.link/tgssldsqy0eyojo" target="_blank" rel="noopener">Voir le template ↗</a></div></div>' +
-      '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">💡 Astuce démo&nbsp;: fais l\'étape 1 en direct (rapide et fiable), et montre l\'étape 2 comme un bonus «&nbsp;à faire chez soi&nbsp;».</p>' }
+      '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">💡 Astuce démo&nbsp;: fais l\'étape 1 en direct (rapide et fiable), et montre l\'étape 2 comme un bonus «&nbsp;à faire chez soi&nbsp;».</p>' },
+
+    { id: "quiz", icon: "🏆", title: "Quiz final : le bon réflexe Claude", body:
+      '<div id="quizWrap"></div>' },
+
+    { id: "merci", icon: "💛", title: "Merci & la suite", body:
+      '<p class="m-lead"><b>Merci d\'avoir participé à la formation&nbsp;!</b> 🎉 J\'espère que tu repars avec plein de nouveaux réflexes Claude.</p>' +
+      '<div class="m-card"><span class="lbl">📝 Ton avis compte</span>Tu vas recevoir un <b>petit lien par mail</b> pour me donner ton avis et tes idées d\'amélioration. Et si tu es chaude de laisser une <b>petite review</b>, ça m\'aide énormément 💛</div>' +
+      '<div class="m-card"><span class="lbl">Envie d\'aller plus loin&nbsp;?</span>Je propose de l\'accompagnement&nbsp;:<ul>' +
+      '<li><b>Une heure en one-to-one</b> — du conseil sur mesure pour ton activité.</li>' +
+      '<li><b>De la délégation de tâches</b> — je m\'occupe (avec Claude) de ce que tu n\'as pas le temps de faire.</li>' +
+      '</ul><b>60&nbsp;€ / heure</b> — et <b>-20% sur ta première heure</b> (one-to-one ou délégation).</div>' +
+      '<div class="m-actions"><a class="btn primary" href="mailto:marie@izi-vizi.be?subject=Mon%20heure%20IZI%20VIZI%20(-20%25)" target="_blank" rel="noopener">Réserver mon heure (-20%) ✉️</a><a class="btn ghost" href="https://izi-vizi.be" target="_blank" rel="noopener">izi-vizi.be ↗</a></div>' +
+      '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">À très vite — et continue à utiliser Claude tous les jours, c\'est comme ça que le réflexe rentre 💪</p>' }
   ];
 
   // ⬇️ ORDRE D'AFFICHAGE DES NIVEAUX — change juste cette liste pour réordonner.
@@ -781,7 +812,9 @@
     "website",    // 22 · Améliore ton site web (page RDV coaching)
     "strat",      // 23 · Stratégie digitale (avant le calendrier édito)
     "edito",      // 24 · Calendrier édito
-    "automatiser" // 25 · Automatiser ta création de contenu (en dernier)
+    "automatiser", // 25 · Automatiser ta création de contenu (en dernier)
+    "quiz"         // 26 · Quiz final (le bon réflexe Claude)
+    , "merci"      // 27 · Merci & la suite (avis + accompagnement)
   ];
   (function reorderMissions() {
     var byId = {};
@@ -806,6 +839,7 @@
     cowork: "https://www.youtube.com/embed/H59g9HC35-o",
     pitch: "https://www.youtube.com/embed/jl6zWmByzV8",
     assistant: "https://www.youtube.com/embed/cu9UPIi16-A",
+    memory: "https://www.youtube.com/embed/1rAkZcY2Ekc",
     ex1: "https://www.youtube.com/embed/3mlqEmwn7a8",
     // landscape: "https://www.youtube.com/embed/XXXXXXXX",
     // design: "https://www.loom.com/embed/XXXXXXXX",
@@ -816,7 +850,7 @@
     landscape: 4, start: 2, eco: 5, data: 4, firstprompt: 5, memory: 8,
     assistant: 12, design: 15, pitch: 12, cowork: 12, delegue: 6, code: 15,
     scheduled: 6, connectors: 6, edito: 12, news: 10, automatiser: 10,
-    usage: 3, bonus: 3, ex1: 12, ex2: 8, ex3: 12, strat: 20, instateam: 10, website: 12
+    usage: 3, bonus: 3, ex1: 12, ex2: 8, ex3: 12, strat: 20, instateam: 10, website: 12, quiz: 10, merci: 3
   };
 
   var RANKS = [
@@ -829,7 +863,7 @@
   var TOTAL = MISSIONS.length;
   // ⬇️ Plafond de progression. Les niveaux au-delà sont verrouillés (« au prochain cours »).
   //    Séance 1 = 15. Pour la séance 2, mets 23 (ou TOTAL) pour tout ouvrir.
-  var MAX_LEVEL = 25;
+  var MAX_LEVEL = 27;
   var KEY = "izivizi_parcours_v1";
 
   var state = { done: {}, name: "" };
@@ -941,6 +975,56 @@
     if (el.classList.contains("locked")) { toast("Termine le niveau précédent d'abord 🔒", false); return; }
     openMission(i);
   }
+  // ----- Quiz final : le bon réflexe Claude -----
+  var QUIZ = [
+    { q: "Trier mes mails directement dans ma boîte Gmail, pendant que je travaille.", opts: [["🧩", "Cowork"], ["🎨", "Design"], ["⏰", "Tâches programmées"], ["🔎", "Déléguer"]], a: 0, why: "Cowork met Claude dans ton navigateur pour agir dans tes onglets (Gmail, sites…)." },
+    { q: "Enregistrer mes couleurs, polices et logo une fois, pour que tout sorte à ma charte.", opts: [["🎨", "Design"], ["⚡", "Code"], ["📂", "Projets"], ["🔌", "Connecteurs"]], a: 0, why: "Claude Design garde l'ADN visuel de ta marque." },
+    { q: "Un petit outil sur mesure pour suivre mes clients et mes tâches, sans coder.", opts: [["⚡", "Code"], ["🎨", "Design"], ["🧩", "Cowork"], ["🔎", "Déléguer"]], a: 0, why: "Claude Code construit des outils et des pages à partir de ta description." },
+    { q: "Chaque matin à 9h, recevoir un résumé trié de mes mails, automatiquement.", opts: [["⏰", "Tâches programmées"], ["🧩", "Cowork"], ["🔌", "Connecteurs"], ["📂", "Projets"]], a: 0, why: "Une tâche programmée se répète toute seule à l'heure choisie." },
+    { q: "Que Claude connaisse mon entreprise, mes offres et mon style pour TOUT ce que je lui demande.", opts: [["📂", "Projets"], ["🎨", "Design"], ["🔎", "Déléguer"], ["⚡", "Code"]], a: 0, why: "Un Projet garde ton contexte en permanence : c'est ton bras droit." },
+    { q: "Relier Claude à mon Google Agenda, mon Drive et mon Notion.", opts: [["🔌", "Connecteurs"], ["🧩", "Cowork"], ["⚡", "Code"], ["🎨", "Design"]], a: 0, why: "Les connecteurs branchent Claude à tes outils, avec ton autorisation." },
+    { q: "Comparer 5 modèles de chaises pour mon resto, avec prix, avantages et liens.", opts: [["🔎", "Déléguer"], ["🎨", "Design"], ["⏰", "Tâches programmées"], ["📂", "Projets"]], a: 0, why: "Claude fait la recherche à ta place et te livre un comparatif prêt à décider." },
+    { q: "Créer une page de réservation à mes couleurs, prête à partager.", opts: [["⚡", "Code"], ["🔌", "Connecteurs"], ["🧩", "Cowork"], ["🔎", "Déléguer"]], a: 0, why: "Décris ce que tu veux : Claude Code construit la page." },
+    { q: "Un pitch deck pour des investisseurs, déjà à ma charte visuelle.", opts: [["🎨", "Design"], ["⚡", "Code"], ["📂", "Projets"], ["⏰", "Tâches programmées"]], a: 0, why: "Avec ton design system, Claude Design sort ta présentation à tes couleurs." }
+  ];
+  var quizState = { i: 0, score: 0, answered: false, chosen: -1 };
+  function quizWrap() { return document.getElementById("quizWrap"); }
+  function renderQuizIntro() {
+    var w = quizWrap(); if (!w) return;
+    w.innerHTML = '<p class="m-lead">🎯 <b>Teste tes réflexes Claude&nbsp;!</b> Pour chaque situation, choisis <b>la bonne partie de Claude</b>. ' + QUIZ.length + ' questions, feedback immédiat.</p>' +
+      '<div class="m-actions"><button class="btn primary" data-quiz="start">Commencer le quiz →</button></div>';
+  }
+  function renderQuizQuestion() {
+    var w = quizWrap(); if (!w) return;
+    var q = QUIZ[quizState.i];
+    var html = '<div class="q-head"><span>Question ' + (quizState.i + 1) + ' / ' + QUIZ.length + '</span><span>Score&nbsp;: <b>' + quizState.score + '</b></span></div>' +
+      '<div class="q-sit">« ' + esc(q.q) + ' »</div><div class="q-opts">';
+    q.opts.forEach(function (o, idx) {
+      var cls = "q-opt";
+      if (quizState.answered) {
+        if (idx === q.a) cls += " correct";
+        else if (idx === quizState.chosen) cls += " wrong";
+        else cls += " dim";
+      }
+      html += '<button class="' + cls + '"' + (quizState.answered ? ' disabled' : ' data-quiz="opt" data-i="' + idx + '"') + '><span class="q-ic">' + o[0] + '</span>' + esc(o[1]) + '</button>';
+    });
+    html += '</div>';
+    if (quizState.answered) {
+      var good = quizState.chosen === q.a;
+      html += '<div class="q-fb ' + (good ? "ok" : "no") + '">' + (good ? "✅ Bien vu&nbsp;! " : "❌ Pas tout à fait. ") + esc(q.why) + '</div>' +
+        '<div class="m-actions"><button class="btn primary" data-quiz="next">' + (quizState.i + 1 >= QUIZ.length ? "Voir mon résultat →" : "Question suivante →") + '</button></div>';
+    }
+    w.innerHTML = html;
+  }
+  function renderQuizResult() {
+    var w = quizWrap(); if (!w) return;
+    var n = quizState.score, tot = QUIZ.length;
+    var msg = n === tot ? "Sans faute&nbsp;! Tu as le réflexe Claude 👑" : (n >= Math.ceil(tot * 0.7) ? "Bravo, c'est presque parfait 🚀" : (n >= Math.ceil(tot * 0.5) ? "Bonne base&nbsp;! Refais un tour pour ancrer les réflexes 💪" : "Pas de souci — rejoue, ça rentre vite 🌱"));
+    w.innerHTML = '<div class="q-result"><div class="q-score">' + n + ' / ' + tot + '</div><p>' + msg + '</p></div>' +
+      '<div class="m-actions"><button class="btn primary" data-quiz="restart">↻ Rejouer</button></div>';
+    if (n >= Math.ceil(tot * 0.7) && !reduceMotion && typeof celebrate === "function") celebrate();
+  }
+
   function openMission(i) {
     curIndex = i;
     var m = MISSIONS[i];
@@ -952,6 +1036,7 @@
     var vid = VIDEOS[m.id];
     var vidHtml = vid ? '<div class="m-video"><iframe src="' + vid + '" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>' : "";
     document.getElementById("mBody").innerHTML = vidHtml + m.body;
+    if (m.id === "quiz") { quizState = { i: 0, score: 0, answered: false, chosen: -1 }; renderQuizIntro(); }
     var vb = document.getElementById("validateBtn");
     if (state.done[m.id]) { vb.classList.add("reprendre"); vb.classList.remove("done"); vb.textContent = "↩ Reprendre ce niveau"; vb.disabled = false; }
     else { vb.classList.remove("reprendre", "done"); vb.textContent = "Valider ce niveau ✓"; vb.disabled = false; }
@@ -1006,6 +1091,20 @@
 
   // Copy / open buttons (delegation in modal body)
   document.getElementById("mBody").addEventListener("click", function (e) {
+    var qz = e.target.closest("[data-quiz]");
+    if (qz) {
+      var act = qz.getAttribute("data-quiz");
+      if (act === "start") { quizState = { i: 0, score: 0, answered: false, chosen: -1 }; renderQuizQuestion(); return; }
+      if (act === "opt") {
+        if (quizState.answered) return;
+        quizState.chosen = parseInt(qz.getAttribute("data-i"), 10);
+        quizState.answered = true;
+        if (quizState.chosen === QUIZ[quizState.i].a) quizState.score++;
+        renderQuizQuestion(); return;
+      }
+      if (act === "next") { quizState.i++; quizState.answered = false; quizState.chosen = -1; if (quizState.i >= QUIZ.length) renderQuizResult(); else renderQuizQuestion(); return; }
+      if (act === "restart") { quizState = { i: 0, score: 0, answered: false, chosen: -1 }; renderQuizQuestion(); return; }
+    }
     if (e.target.closest('[data-action="build-space"]')) { openWizard(); return; }
     if (e.target.closest('[data-action="build-news"]')) { generateAndShow(buildNewsHTML({ name: state.name }), "ma-newsletter-izivizi.html"); return; }
     var btn = e.target.closest("[data-copy]");
@@ -1068,7 +1167,7 @@
     start: "Ouvrir Claude", firstprompt: "1er prompt", memory: "Mémoire GPT", design: "Design",
     pitch: "Pitch", assistant: "Assistant", cowork: "Cowork", delegue: "Déléguer", code: "Claude Code", scheduled: "Tâches auto",
     connectors: "Connect.", edito: "Édito", news: "News", automatiser: "Auto",
-    usage: "Usage", bonus: "Bonus", ex1: "Carrousel", ex2: "Orga", ex3: "Prospect.", strat: "Stratégie", instateam: "Équipe Insta", website: "Page vente"
+    usage: "Usage", bonus: "Bonus", ex1: "Carrousel", ex2: "Orga", ex3: "Prospect.", strat: "Stratégie", instateam: "Équipe Insta", website: "Page vente", quiz: "Quiz final", merci: "Merci"
   };
   function celebrate() {
     var bd = document.getElementById("finalBadges");
