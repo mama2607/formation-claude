@@ -468,8 +468,12 @@
     <h1>Tu es <em>Experte Claude</em>&nbsp;!</h1>
     <p id="finalMsg">Tu as débloqué les 11 niveaux du parcours. Bravo&nbsp;! 🎉</p>
     <div class="final-badges" id="finalBadges"></div>
-    <div class="m-actions" style="justify-content:center; margin-top:0.4rem;">
-      <a class="btn primary big" href="https://claude.ai/new" target="_blank" rel="noopener">Continuer avec Claude ↗</a>
+    <p style="margin-top:0.2rem;"><b>Merci d'avoir participé à la formation&nbsp;!</b> 💛</p>
+    <div class="m-card" style="text-align:left; width:100%;"><span class="lbl">📝 Ton avis compte</span>Tu vas recevoir un <b>petit lien par mail</b> pour me donner ton avis et tes idées d'amélioration. Une <b>petite review</b> m'aide énormément&nbsp;!</div>
+    <div class="m-card" style="text-align:left; width:100%;"><span class="lbl">Envie d'aller plus loin&nbsp;?</span><b>One-to-one</b> (conseil sur mesure) ou <b>délégation de tâches</b> (je les fais avec Claude pour toi). <b>60&nbsp;€ / h</b> — et <b>-20% sur ta 1re heure</b>.</div>
+    <div class="m-actions" style="justify-content:center; margin-top:0.4rem; flex-wrap:wrap;">
+      <a class="btn primary" href="mailto:marie@izi-vizi.be?subject=Mon%20heure%20IZI%20VIZI%20(-20%25)" target="_blank" rel="noopener">Réserver mon heure (-20%) ✉️</a>
+      <a class="btn ghost" href="https://claude.ai/new" target="_blank" rel="noopener">Continuer avec Claude ↗</a>
       <button class="btn ghost" id="replayBtn">Rejouer</button>
     </div>
   </div>
@@ -784,17 +788,7 @@
       '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">💡 Astuce démo&nbsp;: fais l\'étape 1 en direct (rapide et fiable), et montre l\'étape 2 comme un bonus «&nbsp;à faire chez soi&nbsp;».</p>' },
 
     { id: "quiz", icon: "🏆", title: "Quiz final : le bon réflexe Claude", body:
-      '<div id="quizWrap"></div>' },
-
-    { id: "merci", icon: "💛", title: "Merci & la suite", body:
-      '<p class="m-lead"><b>Merci d\'avoir participé à la formation&nbsp;!</b> 🎉 J\'espère que tu repars avec plein de nouveaux réflexes Claude.</p>' +
-      '<div class="m-card"><span class="lbl">📝 Ton avis compte</span>Tu vas recevoir un <b>petit lien par mail</b> pour me donner ton avis et tes idées d\'amélioration. Et si tu es chaude de laisser une <b>petite review</b>, ça m\'aide énormément 💛</div>' +
-      '<div class="m-card"><span class="lbl">Envie d\'aller plus loin&nbsp;?</span>Je propose de l\'accompagnement&nbsp;:<ul>' +
-      '<li><b>Une heure en one-to-one</b> — du conseil sur mesure pour ton activité.</li>' +
-      '<li><b>De la délégation de tâches</b> — je m\'occupe (avec Claude) de ce que tu n\'as pas le temps de faire.</li>' +
-      '</ul><b>60&nbsp;€ / heure</b> — et <b>-20% sur ta première heure</b> (one-to-one ou délégation).</div>' +
-      '<div class="m-actions"><a class="btn primary" href="mailto:marie@izi-vizi.be?subject=Mon%20heure%20IZI%20VIZI%20(-20%25)" target="_blank" rel="noopener">Réserver mon heure (-20%) ✉️</a><a class="btn ghost" href="https://izi-vizi.be" target="_blank" rel="noopener">izi-vizi.be ↗</a></div>' +
-      '<p style="font-size:.85rem; color:var(--text-faint); margin-top:.1rem;">À très vite — et continue à utiliser Claude tous les jours, c\'est comme ça que le réflexe rentre 💪</p>' }
+      '<div id="quizWrap"></div>' }
   ];
 
   // ⬇️ ORDRE D'AFFICHAGE DES NIVEAUX — change juste cette liste pour réordonner.
@@ -814,7 +808,6 @@
     "edito",      // 24 · Calendrier édito
     "automatiser", // 25 · Automatiser ta création de contenu (en dernier)
     "quiz"         // 26 · Quiz final (le bon réflexe Claude)
-    , "merci"      // 27 · Merci & la suite (avis + accompagnement)
   ];
   (function reorderMissions() {
     var byId = {};
@@ -850,7 +843,7 @@
     landscape: 4, start: 2, eco: 5, data: 4, firstprompt: 5, memory: 8,
     assistant: 12, design: 15, pitch: 12, cowork: 12, delegue: 6, code: 15,
     scheduled: 6, connectors: 6, edito: 12, news: 10, automatiser: 10,
-    usage: 3, bonus: 3, ex1: 12, ex2: 8, ex3: 12, strat: 20, instateam: 10, website: 12, quiz: 10, merci: 3
+    usage: 3, bonus: 3, ex1: 12, ex2: 8, ex3: 12, strat: 20, instateam: 10, website: 12, quiz: 10
   };
 
   var RANKS = [
@@ -863,7 +856,7 @@
   var TOTAL = MISSIONS.length;
   // ⬇️ Plafond de progression. Les niveaux au-delà sont verrouillés (« au prochain cours »).
   //    Séance 1 = 15. Pour la séance 2, mets 23 (ou TOTAL) pour tout ouvrir.
-  var MAX_LEVEL = 27;
+  var MAX_LEVEL = 26;
   var KEY = "izivizi_parcours_v1";
 
   var state = { done: {}, name: "" };
@@ -1167,7 +1160,7 @@
     start: "Ouvrir Claude", firstprompt: "1er prompt", memory: "Mémoire GPT", design: "Design",
     pitch: "Pitch", assistant: "Assistant", cowork: "Cowork", delegue: "Déléguer", code: "Claude Code", scheduled: "Tâches auto",
     connectors: "Connect.", edito: "Édito", news: "News", automatiser: "Auto",
-    usage: "Usage", bonus: "Bonus", ex1: "Carrousel", ex2: "Orga", ex3: "Prospect.", strat: "Stratégie", instateam: "Équipe Insta", website: "Page vente", quiz: "Quiz final", merci: "Merci"
+    usage: "Usage", bonus: "Bonus", ex1: "Carrousel", ex2: "Orga", ex3: "Prospect.", strat: "Stratégie", instateam: "Équipe Insta", website: "Page vente", quiz: "Quiz final"
   };
   function celebrate() {
     var bd = document.getElementById("finalBadges");
