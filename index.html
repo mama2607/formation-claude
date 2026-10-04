@@ -542,6 +542,7 @@
   var PROMPT_INSTA_TEST = "Note mon profil Instagram @toncompte sur 100 et dis-moi les 3 choses à changer en priorité.";
   var PROMPT_WEBSITE = "Aide-moi à créer une page de prise de rendez-vous pour mes coachings, à ajouter en page cachée sur mon site (WordPress / Elementor). Donne-moi : un titre et un texte court qui donnent envie de réserver, les bénéfices du coaching, le déroulé d'une séance, une FAQ courte, et l'emplacement pour intégrer mon calendrier de réservation (Cal.com ou Calendly). Puis explique-moi comment la rendre non visible (hors menu + non indexée, ou protégée par mot de passe) et récupérer le lien à partager. À mes couleurs IZI VIZI (doré #e7b142).";
   var PROMPT_VENTE = "Je te donne les 2 fichiers de ma page de vente (Code.gs et Page.html, un script Google Apps Script). Personnalise Page.html à ma charte IZI VIZI (doré #e7b142, ambiance chaleureuse et épurée), réécris les descriptions de mes offres dans ma voix (2 phrases, avec ce que la cliente y gagne), et ajoute sous les offres une section 3 avis clients + une courte FAQ. Puis explique-moi comment redéployer pour que les changements soient en ligne.";
+  var PROMPT_MODELES = "Je vais te donner une liste de tâches que je fais dans mon business. Pour chacune, dis-moi quel modèle Claude utiliser (Haiku, Sonnet ou Opus) et pourquoi, en une phrase. Mes tâches : [liste tes 5 tâches, ex. répondre aux mails clients, écrire mes posts Insta, préparer mon plan de com du trimestre, corriger mes textes, analyser mes chiffres de vente]";
   var PROMPT_STRAT_DOC = "Tu es mon stratège réseaux sociaux. Rédige ma stratégie de contenu complète, structurée et actionnable, sous forme d'un document clair (utilise un Artifact). Mon activité : [décris ton business, ta cible et tes offres en quelques phrases].\n\nSuis exactement cette structure :\n1. Contexte & pourquoi les réseaux sociaux pour mon activité\n2. Analyse du marché et de 2 concurrents (forces / faiblesses / ce que je peux faire mieux)\n3. Objectifs SMART et KPI à suivre\n4. Avatar client détaillé (qui, besoins, freins, où il/elle passe du temps)\n5. Plateforme de marque : mission, vision, valeurs, ton de voix\n6. Ligne éditoriale : funnel (découverte / considération / conversion), mes 4 piliers de contenu, formats recommandés\n7. Choix des réseaux et fréquence de publication réaliste\n8. Calendrier des 2 premières semaines : idées de posts concrètes (accroche + format + réseau)\n\nSois précis, donne des exemples adaptés à MON activité, et termine par les 3 premières actions à lancer cette semaine.";
   var PROMPT_STRAT = "Reprends la stratégie que tu viens de rédiger. Connecte-toi à Canva, duplique ce template : https://canva.link/tgssldsqy0eyojo et remplis-le avec le contenu de la stratégie, à mes couleurs IZI VIZI (doré #e7b142).";
   var PROMPT_ASSIST = "Tu es mon bras droit dans mon entreprise : [nom + activité]. Tu connais mon offre, ma cible et mon style, et tu écris toujours à ma sauce. Aide-moi à centraliser et faire avancer : l'administration (mails, contrats, assurances, suivi de dossiers), le recrutement (annonces, tri des candidatures, entretiens, onboarding), les procédures internes et guides d'accueil, la communication (TikTok, LinkedIn, YouTube, newsletters) et l'organisation des événements et le suivi des réservations/clients. Voici mes infos, mon ton de voix et 2-3 exemples de mes contenus : [colle-les]. Commence par me proposer comment tu peux m'aider cette semaine.";
@@ -730,6 +731,31 @@
       '<div class="m-card"><span class="lbl">💡 Astuce · consommer moins avec un skill</span>Installe la compétence <b>caveman</b> : Claude répond en <b>mode ultra-concis</b> (l\'essentiel, zéro blabla) — tu consommes <b>moins de tokens</b> et tu vas droit au but. Tu l\'actives en disant «&nbsp;<b>caveman mode</b>&nbsp;» et tu coupes avec «&nbsp;<b>stop caveman</b>&nbsp;».<div class="m-actions" style="margin-top:.7rem;"><a class="btn ghost" href="https://mama2607.github.io/formation-claude/skill-caveman.zip" target="_blank" rel="noopener">⬇️ Télécharger le skill caveman</a></div></div>' +
       '<p style="font-size:.8rem; color:var(--text-faint); margin-top:.1rem;">Pour l\'installer : glisse le dossier du skill dans Claude (app) ou demande à Claude « aide-moi à installer ce skill ». C\'est aussi un bon exemple pour créer tes propres compétences (comme ton skill « ta voix »).</p>' },
 
+    { id: "modeles", icon: "🎚️", title: "Quel modèle choisir ?", body:
+      '<p class="m-lead">Claude n\'est pas un seul cerveau : tu as plusieurs modèles, du plus rapide au plus costaud. Choisir le bon, c\'est aller plus vite, économiser ton forfait et polluer moins.</p>' +
+      '<div class="m-card"><span class="lbl">Où le changer</span>En bas de la zone de message, clique sur le <b>nom du modèle</b> (par ex. «&nbsp;Sonnet&nbsp;») : un menu s\'ouvre et tu choisis. Le choix vaut pour la conversation en cours.</div>' +
+      '<div class="m-card"><span class="lbl">Les modèles en un coup d\'œil</span><ul>' +
+      '<li><b>Haiku</b> : le plus rapide et léger. Corriger une faute, reformuler, trier une liste, une réponse rapide.</li>' +
+      '<li><b>Sonnet</b> : le bon équilibre, ton modèle de tous les jours. Posts, mails, idées de contenu, résumés.</li>' +
+      '<li><b>Opus</b> : le plus réfléchi. Stratégie, longs documents, analyse de chiffres, gros projets, Claude Code.</li>' +
+      '<li><b>Fable</b> : le plus puissant, pour les cas vraiment complexes. Rarement nécessaire pour une indépendante.</li>' +
+      '</ul></div>' +
+      '<div class="m-card"><span class="lbl">La règle simple</span>Commence avec <b>Sonnet</b>. Si la réponse est trop légère, passe à <b>Opus</b>. Si c\'est une petite tâche répétitive, descends à <b>Haiku</b>.</div>' +
+      '<div class="m-card"><span class="lbl">Selon ton abonnement</span><ul>' +
+      '<li><b>Gratuit</b> : un modèle de base, suffisant pour démarrer.</li>' +
+      '<li><b>Pro</b> : tu choisis entre les modèles. Fable n\'est pas inclus (crédits payants en plus).</li>' +
+      '<li><b>Max</b> : Fable est inclus (jusqu\'à une partie de ton quota hebdo).</li>' +
+      '</ul></div>' +
+      '<div class="m-card"><span class="lbl">Bon à savoir</span><ul>' +
+      '<li>Plus le modèle est gros, plus il consomme ton quota (tu le vois dans ton usage) et un peu plus d\'énergie.</li>' +
+      '<li>Un gros modèle n\'écrit pas forcément «&nbsp;mieux&nbsp;» un post : pour du contenu court, Sonnet suffit largement.</li>' +
+      '<li>La «&nbsp;réflexion étendue&nbsp;» fait réfléchir Claude plus longtemps : utile pour un problème compliqué, inutile pour un mail.</li>' +
+      '<li>Les noms et versions changent souvent (Sonnet 5.5, Opus 5.5...). Retiens la logique : <b>léger, équilibré, costaud</b>.</li>' +
+      '</ul></div>' +
+      '<div class="m-card"><span class="lbl">Prompt à copier</span>' + PROMPT_MODELES + '</div>' +
+      '<ol class="m-steps"><li>Ouvre le <b>menu des modèles</b> et regarde lesquels tu as.</li><li>Colle le prompt avec tes vraies tâches.</li><li>Teste la même demande (ex. «&nbsp;écris un post pour présenter mon offre&nbsp;») avec <b>Haiku</b> puis avec <b>Sonnet</b> : tu vois la différence ?</li></ol>' +
+      '<div class="m-actions"><button class="btn primary" data-copy="' + esc(PROMPT_MODELES) + '" data-open="claude">Copier &amp; ouvrir Claude</button></div>' },
+
     { id: "bonus", icon: "💎", title: "Un super-pouvoir bonus", body:
       '<p class="m-lead">Claude a des fonctions cachées qui font gagner un temps fou. Pour valider ce niveau, <b>teste la plus simple</b> : dépose un fichier et fais-le analyser.</p>' +
       '<div class="m-card"><span class="lbl">Exercice : analyser un fichier</span>Glisse un document dans Claude (PDF, Excel, image), puis demande&nbsp;:<br>« ' + PROMPT_FILE + ' »</div>' +
@@ -799,6 +825,7 @@
     "design", "pitch", "cowork", "delegue", "code", "scheduled", "connectors",
     "ex2",        // 15 · Organiser ta semaine (fin de la séance 1)
     "usage",      // 16 · Vérifie ce qu'il te reste
+    "modeles",    // 17 · Quel modèle choisir ?
     "bonus",      // 17 · Super-pouvoir bonus
     "ex1",        // 18 · Créer un carrousel (Canva)
     "instateam",  // 19 · Installer ton équipe Instagram
@@ -847,7 +874,7 @@
     landscape: 4, start: 2, eco: 5, data: 4, firstprompt: 5, memory: 8,
     assistant: 12, design: 15, pitch: 12, cowork: 12, delegue: 6, code: 15,
     scheduled: 6, connectors: 6, edito: 12, news: 10, automatiser: 10,
-    usage: 3, bonus: 3, ex1: 12, ex2: 8, ex3: 12, strat: 20, instateam: 10, website: 12, quiz: 10
+    usage: 3, modeles: 5, bonus: 3, ex1: 12, ex2: 8, ex3: 12, strat: 20, instateam: 10, website: 12, quiz: 10
   };
 
   var RANKS = [
@@ -860,7 +887,7 @@
   var TOTAL = MISSIONS.length;
   // ⬇️ Plafond de progression. Les niveaux au-delà sont verrouillés (« au prochain cours »).
   //    Séance 1 = 15. Pour la séance 2, mets 23 (ou TOTAL) pour tout ouvrir.
-  var MAX_LEVEL = 26;
+  var MAX_LEVEL = 27;
   var KEY = "izivizi_parcours_v1";
 
   var state = { done: {}, name: "" };
@@ -1164,7 +1191,7 @@
     start: "Ouvrir Claude", firstprompt: "1er prompt", memory: "Mémoire GPT", design: "Design",
     pitch: "Pitch", assistant: "Assistant", cowork: "Cowork", delegue: "Déléguer", code: "Claude Code", scheduled: "Tâches auto",
     connectors: "Connect.", edito: "Édito", news: "News", automatiser: "Auto",
-    usage: "Usage", bonus: "Bonus", ex1: "Carrousel", ex2: "Orga", ex3: "Prospect.", strat: "Stratégie", instateam: "Équipe Insta", website: "Page vente", quiz: "Quiz final"
+    usage: "Usage", modeles: "Modèles", bonus: "Bonus", ex1: "Carrousel", ex2: "Orga", ex3: "Prospect.", strat: "Stratégie", instateam: "Équipe Insta", website: "Page vente", quiz: "Quiz final"
   };
   function celebrate() {
     var bd = document.getElementById("finalBadges");
