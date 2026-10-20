@@ -1,0 +1,14 @@
+{
+  "name": "insta-skills",
+  "description": "Ton equipe Instagram dans Claude : 13 assistants qui planifient et ecrivent ton contenu, a ton image.",
+  "owner": {
+    "name": "Le Parcours Claude"
+  },
+  "plugins": [
+    {
+      "name": "mon-equipe-instagram",
+      "source": "./plugins/mon-equipe-instagram",
+      "description": "13 assistants Instagram : plan, reels, carrousels, legendes, stories, commentaires, DM, profil, audit, recyclage, tendances et anti-IA."
+    }
+  ]
+}
